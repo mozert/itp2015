@@ -10,9 +10,67 @@ Set Implicit Arguments.
 
 Infix "/\0" := (up_0) (at level 59, right associativity).
 Print objects.
+(** [[
+Inductive objects : Set :=
+    letter : letters -> objects | up_0 : objects -> objects -> objects.
+]]
+*)
 
 Infix "~a" := same_assoc (at level 69).
-Print same_assoc. 
+Print same_assoc.
+(** [[
+Inductive same_assoc
+              : forall A B : objects,
+                arrows_assoc A B -> arrows_assoc A B -> Set :=
+    same_assoc_refl : forall (A B : objects) (f : arrows_assoc A B), f ~a f
+  | same_assoc_trans : forall (A B : objects) (f g h : arrows_assoc A B),
+                       f ~a g -> g ~a h -> f ~a h
+  | same_assoc_sym : forall (A B : objects) (f g : arrows_assoc A B),
+                     f ~a g -> g ~a f
+  | same_assoc_cong_com : forall (A B C : objects) (f f0 : arrows_assoc A B)
+                            (g g0 : arrows_assoc B C),
+                          f ~a f0 -> g ~a g0 -> g <oa f ~a g0 <oa f0
+  | same_assoc_cong_up_1 : forall (A B A0 B0 : objects)
+                             (f f0 : arrows_assoc A B)
+                             (g g0 : arrows_assoc A0 B0),
+                           f ~a f0 -> g ~a g0 -> f /\1a g ~a f0 /\1a g0
+  | same_assoc_cat_left : forall (A B : objects) (f : arrows_assoc A B),
+                          unitt_assoc B <oa f ~a f
+  | same_assoc_cat_right : forall (A B : objects) (f : arrows_assoc A B),
+                           f <oa unitt_assoc A ~a f
+  | same_assoc_cat_assoc : forall (A B C D : objects) (f : arrows_assoc A B)
+                             (g : arrows_assoc B C) (h : arrows_assoc C D),
+                           h <oa g <oa f ~a (h <oa g) <oa f
+  | same_assoc_bif_up_unit : forall A B : objects,
+                             unitt_assoc A /\1a unitt_assoc B ~a
+                             unitt_assoc (A /\0 B)
+  | same_assoc_bif_up_com : forall (A B C A0 B0 C0 : objects)
+                              (f : arrows_assoc A B) (g : arrows_assoc B C)
+                              (f0 : arrows_assoc A0 B0)
+                              (g0 : arrows_assoc B0 C0),
+                            (g <oa f) /\1a (g0 <oa f0) ~a
+                            g /\1a g0 <oa f /\1a f0
+  | same_assoc_bracket_left_5 : forall A B C D : objects,
+                                bracket_left_assoc (A /\0 B) C D <oa
+                                bracket_left_assoc A B (C /\0 D) ~a
+                                bracket_left_assoc A B C /\1a unitt_assoc D <oa
+                                bracket_left_assoc A (B /\0 C) D <oa
+                                unitt_assoc A /\1a bracket_left_assoc B C D
+  | same_assoc_nat : forall (A A' : objects) (f : arrows_assoc A' A)
+                       (B B' : objects) (g : arrows_assoc B' B)
+                       (C C' : objects) (h : arrows_assoc C' C),
+                     bracket_left_assoc A B C <oa f /\1a g /\1a h ~a
+                     (f /\1a g) /\1a h <oa bracket_left_assoc A' B' C'
+  | same_assoc_bracket_right_bracket_left : forall A B C : objects,
+                                            bracket_right_assoc A B C <oa
+                                            bracket_left_assoc A B C ~a
+                                            unitt_assoc (A /\0 B /\0 C)
+  | same_assoc_bracket_left_bracket_right : forall A B C : objects,
+                                            bracket_left_assoc A B C <oa
+                                            bracket_right_assoc A B C ~a
+                                            unitt_assoc ((A /\0 B) /\0 C)
+]]
+*)
 
 Infix "~s" := same' (at level 69).
 About same'.

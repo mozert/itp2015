@@ -145,28 +145,14 @@ EGITOR.NET, https://github.com/mozert
 \end_layout
 
 \begin_layout Abstract
-This text responds to Gross 
+This Coq text responds to Gross 
 \emph on
 Coq Categories Experience
 \emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "gross"
-
-\end_inset
-
  and Chlipala 
 \emph on
 Compositional Computational Reflection
 \emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "chlipala"
-
-\end_inset
-
  of ITP 2014.
  
 \begin_inset Quotes eld
@@ -186,15 +172,19 @@ Computational Reflection
 
  is synonymous for monadic semantics; and this text attempts some comonadic
  descent along functorial semantics : Dosen semiassociative coherence covers
- Maclane associative coherence 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "dosen"
+ Maclane associative coherence by some comonadic adjunction,
+\begin_inset Newline newline
+\end_inset
 
+ 
+\begin_inset Formula $\text{embedding }:\ \text{SemiAssoc}\leftrightarrows\text{Assoc}\ :\text{ flattening reflection}$
 \end_inset
 
 .
- UPDATE HERE https://github.com/mozert
+\begin_inset Newline newline
+\end_inset
+
+ UPDATE HERE IN FEWHOURS https://github.com/mozert
 \end_layout
 
 \begin_layout Section
@@ -202,7 +192,7 @@ Contents
 \end_layout
 
 \begin_layout Standard
-This text responds to Gross 
+This Coq text responds to Gross 
 \emph on
 Coq Categories Experience
 \emph default
@@ -250,18 +240,15 @@ key "dosen"
 
 \end_inset
 
+ by some comonadic adjunction, 
+\begin_inset Formula $\text{embedding }:\ \text{SemiAssoc}\leftrightarrows\text{Assoc}\ :\text{ flattening reflection}$
+\end_inset
+
 .
 \end_layout
 
 \begin_layout Standard
 Categories 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "borceuxjanelidze"
-
-\end_inset
-
- 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "borceux"
@@ -358,9 +345,87 @@ Kan
 \end_inset
 
  functor.
- ...
- And SemiAssoc <--> Assoc COMONADIC , List <--> SemiAssoc MONADIC ...
+ This text shows some comonadic adjunction, 
+\begin_inset Formula $\text{embedding }:\ \text{SemiAssoc}\leftrightarrows\text{Assoc}\ :\text{ flattening reflection}$
+\end_inset
+
+.
+\end_layout
+
+\begin_layout Standard
+Categories 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "borceuxjanelidze"
+
+\end_inset
+
  
+\begin_inset CommandInset citation
+LatexCommand cite
+key "borceux"
+
+\end_inset
+
+ converge to the descent technique from the functorial semantics technique
+ with the monadic adjunctions technique.
+ Now functorial semantics arise when one attempt to internalize the common
+ phrasing of the logician model theory, and this internalization has as
+ consequence the functionalization/functorialization/saturation ....tensor of
+ theories ...
+ Galois extensions with radical roots symmetric polynomial solvable incompatible
+ with symmetry ...
+ ring extension algebraic functor comonadicity.
+ Gentzen prophecies; Galois-Gentzen-Galthendiek the 3 G's of math, which
+ 4th G for logical recur.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Esquisse d'un programme
+\emph default
+: Now when try to internalize semantics in Dosen book then get functorialization
+; therefore writing some Coq text for more from Dosen book is something
+ that shall be done to gather data and examples.
+ Also exploring Borceux books from computational reflection point of view
+ sha be done: 3 pages/day = 1 year reading.
+ 
+\end_layout
+
+\begin_layout Standard
+The common auto technique (the one behind CPDT 
+\emph on
+crush
+\emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "chlipalacpdt"
+
+\end_inset
+
+) is
+\end_layout
+
+\begin_layout Quotation
+[ induction; (eval beta iota; auto logical unify; auto substitution rewrite);
+ 
+\end_layout
+
+\begin_layout Quotation
+repeat ( (match goal | context match term => destruct); (eval beta iota;
+ auto logical unify; auto substitution rewrite) ); 
+\end_layout
+
+\begin_layout Quotation
+congruence; omega; anyreflection ]
+\end_layout
+
+\begin_layout Quotation
+In other words, each action is one of: convert, or logify recur, or unify,
+ or substitute rewrite, or reflect.
+ And one attempts some reflection after logic programming.
 \end_layout
 
 \begin_layout Section
@@ -467,6 +532,37 @@ Gregory Malecha, Adam Chlipala, Thomas Braibant.
 \begin_layout Bibliography
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
+key "chlipalacpdt"
+
+\end_inset
+
+Adam Chlipala.
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Certified Programming with Dependent Types
+\begin_inset Quotes erd
+\end_inset
+
+.
+ 
+\begin_inset Flex URL
+status open
+
+\begin_layout Plain Layout
+
+http://adam.chlipala.net/cpdt/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
 key "dosen"
 
 \end_inset
@@ -499,8 +595,7 @@ key "borceuxjanelidze"
 \end_inset
 
 Francis Borceux, George Janelidze.
- “Handbook of categorical algebra.
- Volumes 1 2 3.”.
+ “Galois Theories”.
  Cambridge University Press, 2001.
 \end_layout
 

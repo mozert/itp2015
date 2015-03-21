@@ -12,11 +12,127 @@
 \coqdockw{Infix} \coqdef{assoc.::x '/x5C0' x}{"}{"}/\symbol{92}0" := (\coqdocconstructor{up\_0}) (\coqdoctac{at} \coqdockw{level} 59, \coqdoctac{right} \coqdockw{associativity}).\coqdoceol
 \coqdocnoindent
 \coqdockw{Print} \coqdocvar{objects}.\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Inductive} \coqdocvar{objects} : \coqdockw{Set} :=\coqdoceol
+\coqdocindent{2.00em}
+\coqdocvar{letter} : \coqdocvar{letters} \ensuremath{\rightarrow} \coqdocvar{objects} \ensuremath{|} \coqdocvar{up\_0} : \coqdocvar{objects} \ensuremath{\rightarrow} \coqdocvar{objects} \ensuremath{\rightarrow} \coqdocvar{objects}.
+
+\coqdocemptyline
+\begin{coqdoccode}
 \coqdocemptyline
 \coqdocnoindent
 \coqdockw{Infix} \coqdef{assoc.::x 'x7Ea' x}{"}{"}\~{}a" := \coqdocinductive{same\_assoc} (\coqdoctac{at} \coqdockw{level} 69).\coqdoceol
 \coqdocnoindent
 \coqdockw{Print} \coqdocvar{same\_assoc}.\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Inductive} \coqdocvar{same\_assoc}\coqdoceol
+\coqdocindent{7.00em}
+: \coqdockw{\ensuremath{\forall}} \coqdocvar{A} \coqdocvar{B} : \coqdocvar{objects},\coqdoceol
+\coqdocindent{8.00em}
+\coqdocvar{arrows\_assoc} \coqdocvar{A} \coqdocvar{B} \ensuremath{\rightarrow} \coqdocvar{arrows\_assoc} \coqdocvar{A} \coqdocvar{B} \ensuremath{\rightarrow} \coqdockw{Set} :=\coqdoceol
+\coqdocindent{2.00em}
+\coqdocvar{same\_assoc\_refl} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{A} \coqdocvar{B} : \coqdocvar{objects}) (\coqdocvar{f} : \coqdocvar{arrows\_assoc} \coqdocvar{A} \coqdocvar{B}), \coqdocvar{f} \ensuremath{\sim}\coqdocvar{a} \coqdocvar{f}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{same\_assoc\_trans} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{A} \coqdocvar{B} : \coqdocvar{objects}) (\coqdocvar{f} \coqdocvar{g} \coqdocvar{h} : \coqdocvar{arrows\_assoc} \coqdocvar{A} \coqdocvar{B}),\coqdoceol
+\coqdocindent{11.50em}
+\coqdocvar{f} \ensuremath{\sim}\coqdocvar{a} \coqdocvar{g} \ensuremath{\rightarrow} \coqdocvar{g} \ensuremath{\sim}\coqdocvar{a} \coqdocvar{h} \ensuremath{\rightarrow} \coqdocvar{f} \ensuremath{\sim}\coqdocvar{a} \coqdocvar{h}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{same\_assoc\_sym} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{A} \coqdocvar{B} : \coqdocvar{objects}) (\coqdocvar{f} \coqdocvar{g} : \coqdocvar{arrows\_assoc} \coqdocvar{A} \coqdocvar{B}),\coqdoceol
+\coqdocindent{10.50em}
+\coqdocvar{f} \ensuremath{\sim}\coqdocvar{a} \coqdocvar{g} \ensuremath{\rightarrow} \coqdocvar{g} \ensuremath{\sim}\coqdocvar{a} \coqdocvar{f}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{same\_assoc\_cong\_com} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{A} \coqdocvar{B} \coqdocvar{C} : \coqdocvar{objects}) (\coqdocvar{f} \coqdocvar{f0} : \coqdocvar{arrows\_assoc} \coqdocvar{A} \coqdocvar{B})\coqdoceol
+\coqdocindent{14.00em}
+(\coqdocvar{g} \coqdocvar{g0} : \coqdocvar{arrows\_assoc} \coqdocvar{B} \coqdocvar{C}),\coqdoceol
+\coqdocindent{13.00em}
+\coqdocvar{f} \ensuremath{\sim}\coqdocvar{a} \coqdocvar{f0} \ensuremath{\rightarrow} \coqdocvar{g} \ensuremath{\sim}\coqdocvar{a} \coqdocvar{g0} \ensuremath{\rightarrow} \coqdocvar{g} <\coqdocvar{oa} \coqdocvar{f} \ensuremath{\sim}\coqdocvar{a} \coqdocvar{g0} <\coqdocvar{oa} \coqdocvar{f0}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{same\_assoc\_cong\_up\_1} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{A} \coqdocvar{B} \coqdocvar{A0} \coqdocvar{B0} : \coqdocvar{objects})\coqdoceol
+\coqdocindent{14.50em}
+(\coqdocvar{f} \coqdocvar{f0} : \coqdocvar{arrows\_assoc} \coqdocvar{A} \coqdocvar{B})\coqdoceol
+\coqdocindent{14.50em}
+(\coqdocvar{g} \coqdocvar{g0} : \coqdocvar{arrows\_assoc} \coqdocvar{A0} \coqdocvar{B0}),\coqdoceol
+\coqdocindent{13.50em}
+\coqdocvar{f} \ensuremath{\sim}\coqdocvar{a} \coqdocvar{f0} \ensuremath{\rightarrow} \coqdocvar{g} \ensuremath{\sim}\coqdocvar{a} \coqdocvar{g0} \ensuremath{\rightarrow} \coqdocvar{f} /\symbol{92}1\coqdocvar{a} \coqdocvar{g} \ensuremath{\sim}\coqdocvar{a} \coqdocvar{f0} /\symbol{92}1\coqdocvar{a} \coqdocvar{g0}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{same\_assoc\_cat\_left} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{A} \coqdocvar{B} : \coqdocvar{objects}) (\coqdocvar{f} : \coqdocvar{arrows\_assoc} \coqdocvar{A} \coqdocvar{B}),\coqdoceol
+\coqdocindent{13.00em}
+\coqdocvar{unitt\_assoc} \coqdocvar{B} <\coqdocvar{oa} \coqdocvar{f} \ensuremath{\sim}\coqdocvar{a} \coqdocvar{f}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{same\_assoc\_cat\_right} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{A} \coqdocvar{B} : \coqdocvar{objects}) (\coqdocvar{f} : \coqdocvar{arrows\_assoc} \coqdocvar{A} \coqdocvar{B}),\coqdoceol
+\coqdocindent{13.50em}
+\coqdocvar{f} <\coqdocvar{oa} \coqdocvar{unitt\_assoc} \coqdocvar{A} \ensuremath{\sim}\coqdocvar{a} \coqdocvar{f}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{same\_assoc\_cat\_assoc} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{A} \coqdocvar{B} \coqdocvar{C} \coqdocvar{D} : \coqdocvar{objects}) (\coqdocvar{f} : \coqdocvar{arrows\_assoc} \coqdocvar{A} \coqdocvar{B})\coqdoceol
+\coqdocindent{14.50em}
+(\coqdocvar{g} : \coqdocvar{arrows\_assoc} \coqdocvar{B} \coqdocvar{C}) (\coqdocvar{h} : \coqdocvar{arrows\_assoc} \coqdocvar{C} \coqdocvar{D}),\coqdoceol
+\coqdocindent{13.50em}
+\coqdocvar{h} <\coqdocvar{oa} \coqdocvar{g} <\coqdocvar{oa} \coqdocvar{f} \ensuremath{\sim}\coqdocvar{a} (\coqdocvar{h} <\coqdocvar{oa} \coqdocvar{g}) <\coqdocvar{oa} \coqdocvar{f}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{same\_assoc\_bif\_up\_unit} : \coqdockw{\ensuremath{\forall}} \coqdocvar{A} \coqdocvar{B} : \coqdocvar{objects},\coqdoceol
+\coqdocindent{14.50em}
+\coqdocvar{unitt\_assoc} \coqdocvar{A} /\symbol{92}1\coqdocvar{a} \coqdocvar{unitt\_assoc} \coqdocvar{B} \ensuremath{\sim}\coqdocvar{a}\coqdoceol
+\coqdocindent{14.50em}
+\coqdocvar{unitt\_assoc} (\coqdocvar{A} /\symbol{92}0 \coqdocvar{B})\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{same\_assoc\_bif\_up\_com} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{A} \coqdocvar{B} \coqdocvar{C} \coqdocvar{A0} \coqdocvar{B0} \coqdocvar{C0} : \coqdocvar{objects})\coqdoceol
+\coqdocindent{15.00em}
+(\coqdocvar{f} : \coqdocvar{arrows\_assoc} \coqdocvar{A} \coqdocvar{B}) (\coqdocvar{g} : \coqdocvar{arrows\_assoc} \coqdocvar{B} \coqdocvar{C})\coqdoceol
+\coqdocindent{15.00em}
+(\coqdocvar{f0} : \coqdocvar{arrows\_assoc} \coqdocvar{A0} \coqdocvar{B0})\coqdoceol
+\coqdocindent{15.00em}
+(\coqdocvar{g0} : \coqdocvar{arrows\_assoc} \coqdocvar{B0} \coqdocvar{C0}),\coqdoceol
+\coqdocindent{14.00em}
+(\coqdocvar{g} <\coqdocvar{oa} \coqdocvar{f}) /\symbol{92}1\coqdocvar{a} (\coqdocvar{g0} <\coqdocvar{oa} \coqdocvar{f0}) \ensuremath{\sim}\coqdocvar{a}\coqdoceol
+\coqdocindent{14.00em}
+\coqdocvar{g} /\symbol{92}1\coqdocvar{a} \coqdocvar{g0} <\coqdocvar{oa} \coqdocvar{f} /\symbol{92}1\coqdocvar{a} \coqdocvar{f0}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{same\_assoc\_bracket\_left\_5} : \coqdockw{\ensuremath{\forall}} \coqdocvar{A} \coqdocvar{B} \coqdocvar{C} \coqdocvar{D} : \coqdocvar{objects},\coqdoceol
+\coqdocindent{16.00em}
+\coqdocvar{bracket\_left\_assoc} (\coqdocvar{A} /\symbol{92}0 \coqdocvar{B}) \coqdocvar{C} \coqdocvar{D} <\coqdocvar{oa}\coqdoceol
+\coqdocindent{16.00em}
+\coqdocvar{bracket\_left\_assoc} \coqdocvar{A} \coqdocvar{B} (\coqdocvar{C} /\symbol{92}0 \coqdocvar{D}) \ensuremath{\sim}\coqdocvar{a}\coqdoceol
+\coqdocindent{16.00em}
+\coqdocvar{bracket\_left\_assoc} \coqdocvar{A} \coqdocvar{B} \coqdocvar{C} /\symbol{92}1\coqdocvar{a} \coqdocvar{unitt\_assoc} \coqdocvar{D} <\coqdocvar{oa}\coqdoceol
+\coqdocindent{16.00em}
+\coqdocvar{bracket\_left\_assoc} \coqdocvar{A} (\coqdocvar{B} /\symbol{92}0 \coqdocvar{C}) \coqdocvar{D} <\coqdocvar{oa}\coqdoceol
+\coqdocindent{16.00em}
+\coqdocvar{unitt\_assoc} \coqdocvar{A} /\symbol{92}1\coqdocvar{a} \coqdocvar{bracket\_left\_assoc} \coqdocvar{B} \coqdocvar{C} \coqdocvar{D}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{same\_assoc\_nat} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{A} \coqdocvar{A'} : \coqdocvar{objects}) (\coqdocvar{f} : \coqdocvar{arrows\_assoc} \coqdocvar{A'} \coqdocvar{A})\coqdoceol
+\coqdocindent{11.50em}
+(\coqdocvar{B} \coqdocvar{B'} : \coqdocvar{objects}) (\coqdocvar{g} : \coqdocvar{arrows\_assoc} \coqdocvar{B'} \coqdocvar{B})\coqdoceol
+\coqdocindent{11.50em}
+(\coqdocvar{C} \coqdocvar{C'} : \coqdocvar{objects}) (\coqdocvar{h} : \coqdocvar{arrows\_assoc} \coqdocvar{C'} \coqdocvar{C}),\coqdoceol
+\coqdocindent{10.50em}
+\coqdocvar{bracket\_left\_assoc} \coqdocvar{A} \coqdocvar{B} \coqdocvar{C} <\coqdocvar{oa} \coqdocvar{f} /\symbol{92}1\coqdocvar{a} \coqdocvar{g} /\symbol{92}1\coqdocvar{a} \coqdocvar{h} \ensuremath{\sim}\coqdocvar{a}\coqdoceol
+\coqdocindent{10.50em}
+(\coqdocvar{f} /\symbol{92}1\coqdocvar{a} \coqdocvar{g}) /\symbol{92}1\coqdocvar{a} \coqdocvar{h} <\coqdocvar{oa} \coqdocvar{bracket\_left\_assoc} \coqdocvar{A'} \coqdocvar{B'} \coqdocvar{C'}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{same\_assoc\_bracket\_right\_bracket\_left} : \coqdockw{\ensuremath{\forall}} \coqdocvar{A} \coqdocvar{B} \coqdocvar{C} : \coqdocvar{objects},\coqdoceol
+\coqdocindent{22.00em}
+\coqdocvar{bracket\_right\_assoc} \coqdocvar{A} \coqdocvar{B} \coqdocvar{C} <\coqdocvar{oa}\coqdoceol
+\coqdocindent{22.00em}
+\coqdocvar{bracket\_left\_assoc} \coqdocvar{A} \coqdocvar{B} \coqdocvar{C} \ensuremath{\sim}\coqdocvar{a}\coqdoceol
+\coqdocindent{22.00em}
+\coqdocvar{unitt\_assoc} (\coqdocvar{A} /\symbol{92}0 \coqdocvar{B} /\symbol{92}0 \coqdocvar{C})\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{same\_assoc\_bracket\_left\_bracket\_right} : \coqdockw{\ensuremath{\forall}} \coqdocvar{A} \coqdocvar{B} \coqdocvar{C} : \coqdocvar{objects},\coqdoceol
+\coqdocindent{22.00em}
+\coqdocvar{bracket\_left\_assoc} \coqdocvar{A} \coqdocvar{B} \coqdocvar{C} <\coqdocvar{oa}\coqdoceol
+\coqdocindent{22.00em}
+\coqdocvar{bracket\_right\_assoc} \coqdocvar{A} \coqdocvar{B} \coqdocvar{C} \ensuremath{\sim}\coqdocvar{a}\coqdoceol
+\coqdocindent{22.00em}
+\coqdocvar{unitt\_assoc} ((\coqdocvar{A} /\symbol{92}0 \coqdocvar{B}) /\symbol{92}0 \coqdocvar{C})
+
+\coqdocemptyline
+\begin{coqdoccode}
 \coqdocemptyline
 \coqdocnoindent
 \coqdockw{Infix} \coqdef{assoc.::x 'x7Es' x}{"}{"}\~{}s" := \coqdocinductive{same'} (\coqdoctac{at} \coqdockw{level} 69).\coqdoceol
