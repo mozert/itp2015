@@ -1,0 +1,636 @@
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocemptyline
+\end{coqdoccode}
+\section{Maclane Associative Coherence}
+
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Infix} \coqdef{assoc.::x '/x5C0' x}{"}{"}/\symbol{92}0" := (\coqdocconstructor{up\_0}) (\coqdoctac{at} \coqdockw{level} 59, \coqdoctac{right} \coqdockw{associativity}).\coqdoceol
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{objects}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Infix} \coqdef{assoc.::x 'x7Ea' x}{"}{"}\~{}a" := \coqdocinductive{same\_assoc} (\coqdoctac{at} \coqdockw{level} 69).\coqdoceol
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{same\_assoc}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Infix} \coqdef{assoc.::x 'x7Es' x}{"}{"}\~{}s" := \coqdocinductive{same'} (\coqdoctac{at} \coqdockw{level} 69).\coqdoceol
+\coqdocnoindent
+\coqdockw{About} \coqdocinductive{same'}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{normal}.\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Inductive} \coqdocvar{normal} : \coqdocvar{objects} \ensuremath{\rightarrow} \coqdockw{Set} :=\coqdoceol
+\coqdocindent{2.00em}
+\coqdocvar{normal\_cons1} : \coqdockw{\ensuremath{\forall}} \coqdocvar{l} : \coqdocvar{letters}, \coqdocvar{normal} (\coqdocvar{letter} \coqdocvar{l})\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{normal\_cons2} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{A} : \coqdocvar{objects}) (\coqdocvar{l} : \coqdocvar{letters}),\coqdoceol
+\coqdocindent{9.50em}
+\coqdocvar{normal} \coqdocvar{A} \ensuremath{\rightarrow} \coqdocvar{normal} (\coqdocvar{A} /\symbol{92}0 \coqdocvar{letter} \coqdocvar{l}).
+
+\coqdocemptyline
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{normalize\_aux}.\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{fix} \coqdocvar{normalize\_aux} (\coqdocvar{Z} \coqdocvar{A} : \coqdocvar{objects}) \{\coqdockw{struct} \coqdocvar{A}\} : \coqdocvar{objects} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvar{A} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{letter} \coqdocvar{l} \ensuremath{\Rightarrow} \coqdocvar{Z} /\symbol{92}0 \coqdocvar{letter} \coqdocvar{l}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{A1} /\symbol{92}0 \coqdocvar{A2} \ensuremath{\Rightarrow} \coqdocvar{normalize\_aux} (\coqdocvar{normalize\_aux} \coqdocvar{Z} \coqdocvar{A1}) \coqdocvar{A2}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{2.50em}
+: \coqdocvar{objects} \ensuremath{\rightarrow} \coqdocvar{objects} \ensuremath{\rightarrow} \coqdocvar{objects}
+
+\coqdocemptyline
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{normalize}.\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{fix} \coqdocvar{normalize} (\coqdocvar{A} : \coqdocvar{objects}) : \coqdocvar{objects} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvar{A} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{letter} \coqdocvar{l} \ensuremath{\Rightarrow} \coqdocvar{letter} \coqdocvar{l}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{A1} /\symbol{92}0 \coqdocvar{A2} \ensuremath{\Rightarrow} \coqdocvar{normalize} \coqdocvar{A1} </\symbol{92}0 \coqdocvar{A2}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}
+
+\coqdocemptyline
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{developed}.\coqdoceol
+\end{coqdoccode}
+This \coqdocvar{development} or factorization lemma necessitate some deep ('well-founded') induction,
+using some measure \coqdocvar{coherence.length} which shows that this may be related to
+arithmetic factorization. \begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{coherence.length}.\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{fix} \coqdocvar{length} (\coqdocvar{A} \coqdocvar{B} : \coqdocvar{objects}) (\coqdocvar{f} : \coqdocvar{arrows} \coqdocvar{A} \coqdocvar{B}) \{\coqdockw{struct} \coqdocvar{f}\} : \coqdocvar{nat} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvar{f} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{unitt} \coqdocvar{\_} \ensuremath{\Rightarrow} 2\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{bracket\_left} \coqdocvar{\_} \coqdocvar{\_} \coqdocvar{\_} \ensuremath{\Rightarrow} 4\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{up\_1} \coqdocvar{A0} \coqdocvar{B0} \coqdocvar{A1} \coqdocvar{B1} \coqdocvar{f1} \coqdocvar{f2} \ensuremath{\Rightarrow} \coqdocvar{length} \coqdocvar{A0} \coqdocvar{B0} \coqdocvar{f1} \ensuremath{\times} \coqdocvar{length} \coqdocvar{A1} \coqdocvar{B1} \coqdocvar{f2}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{com} \coqdocvar{A0} \coqdocvar{B0} \coqdocvar{C} \coqdocvar{f1} \coqdocvar{f2} \ensuremath{\Rightarrow} \coqdocvar{length} \coqdocvar{A0} \coqdocvar{B0} \coqdocvar{f1} + \coqdocvar{length} \coqdocvar{B0} \coqdocvar{C} \coqdocvar{f2}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}
+
+\coqdocemptyline
+\begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Check} \coqdoclemma{development}: \coqdockw{\ensuremath{\forall}} (\coqdocvar{len} : \coqexternalref{nat}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocinductive{nat}}) (\coqdocvar{A} \coqdocvar{B} : \coqdocinductive{objects}) (\coqdocvar{f} : \coqdocinductive{arrows} \coqdocvariable{A} \coqdocvariable{B}),\coqdoceol
+\coqdocindent{3.50em}
+\coqdocdefinition{length} \coqdocvariable{f} \coqexternalref{:nat scope:x '<=' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Peano}{\coqdocnotation{\ensuremath{\le}}} \coqdocvariable{len} \ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{3.50em}
+\coqexternalref{:type scope:'x7B' x ':' x 'x26' x 'x7D'}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Specif}{\coqdocnotation{\{}}\coqdocvar{f'} \coqexternalref{:type scope:'x7B' x ':' x 'x26' x 'x7D'}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Specif}{\coqdocnotation{:}} \coqdocinductive{arrows} \coqdocvariable{A} \coqdocvariable{B} \coqexternalref{:type scope:'x7B' x ':' x 'x26' x 'x7D'}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Specif}{\coqdocnotation{\&}}\coqdoceol
+\coqdocindent{3.50em}
+(\coqdocinductive{developed} \coqdocvar{f'} \coqexternalref{:type scope:x '*' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocnotation{\ensuremath{\times}}} \coqexternalref{:type scope:x '*' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocnotation{((}}\coqdocdefinition{length} \coqdocvar{f'} \coqexternalref{:nat scope:x '<=' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Peano}{\coqdocnotation{\ensuremath{\le}}} \coqdocdefinition{length} \coqdocvariable{f}\coqexternalref{:type scope:x '*' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocnotation{)}} \coqexternalref{:type scope:x '*' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocnotation{\ensuremath{\times}}} \coqexternalref{:type scope:x '*' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocnotation{(}}\coqdocvariable{f} \coqdocnotation{\~{}\~{}} \coqdocvar{f'}\coqexternalref{:type scope:x '*' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocnotation{))}})\%\coqdocvar{type}\coqexternalref{:type scope:'x7B' x ':' x 'x26' x 'x7D'}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Specif}{\coqdocnotation{\}}}.\coqdoceol
+\coqdocemptyline
+\coqdocemptyline
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Notation} \coqdef{assoc.normalize aux unitrefl assoc}{normalize\_aux\_unitrefl\_assoc}{\coqdocabbreviation{normalize\_aux\_unitrefl\_assoc}} := \coqdocdefinition{normalize\_aux\_arrow\_assoc}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{normalize\_aux\_arrow\_assoc}.\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{fix} \coqdocvar{normalize\_aux\_arrow\_assoc} (\coqdocvar{Y} \coqdocvar{Z} : \coqdocvar{objects}) (\coqdocvar{y} : \coqdocvar{arrows\_assoc} \coqdocvar{Y} \coqdocvar{Z})\coqdoceol
+\coqdocindent{15.00em}
+(\coqdocvar{A} : \coqdocvar{objects}) \{\coqdockw{struct} \coqdocvar{A}\} :\coqdoceol
+\coqdocindent{1.00em}
+\coqdocvar{arrows\_assoc} (\coqdocvar{Y} /\symbol{92}0 \coqdocvar{A}) (\coqdocvar{Z} </\symbol{92}0 \coqdocvar{A}) :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvar{A} \coqdockw{as} \coqdocvar{A0} \coqdockw{return} (\coqdocvar{arrows\_assoc} (\coqdocvar{Y} /\symbol{92}0 \coqdocvar{A0}) (\coqdocvar{Z} </\symbol{92}0 \coqdocvar{A0})) \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{letter} \coqdocvar{l} \ensuremath{\Rightarrow} \coqdocvar{y} /\symbol{92}1\coqdocvar{a} \coqdocvar{unitt\_assoc} (\coqdocvar{letter} \coqdocvar{l})\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{A1} /\symbol{92}0 \coqdocvar{A2} \ensuremath{\Rightarrow}\coqdoceol
+\coqdocindent{3.00em}
+\coqdocvar{normalize\_aux\_arrow\_assoc} (\coqdocvar{Y} /\symbol{92}0 \coqdocvar{A1}) (\coqdocvar{Z} </\symbol{92}0 \coqdocvar{A1})\coqdoceol
+\coqdocindent{4.00em}
+(\coqdocvar{normalize\_aux\_arrow\_assoc} \coqdocvar{Y} \coqdocvar{Z} \coqdocvar{y} \coqdocvar{A1}) \coqdocvar{A2} <\coqdocvar{oa}\coqdoceol
+\coqdocindent{3.00em}
+\coqdocvar{bracket\_left\_assoc} \coqdocvar{Y} \coqdocvar{A1} \coqdocvar{A2}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{2.50em}
+: \coqdockw{\ensuremath{\forall}} \coqdocvar{Y} \coqdocvar{Z} : \coqdocvar{objects},\coqdoceol
+\coqdocindent{3.50em}
+\coqdocvar{arrows\_assoc} \coqdocvar{Y} \coqdocvar{Z} \ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{3.50em}
+\coqdockw{\ensuremath{\forall}} \coqdocvar{A} : \coqdocvar{objects}, \coqdocvar{arrows\_assoc} (\coqdocvar{Y} /\symbol{92}0 \coqdocvar{A}) (\coqdocvar{Z} </\symbol{92}0 \coqdocvar{A})
+
+\coqdocemptyline
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Notation} \coqdef{assoc.normalize unitrefl assoc}{normalize\_unitrefl\_assoc}{\coqdocabbreviation{normalize\_unitrefl\_assoc}} := \coqdocdefinition{normalize\_arrow\_assoc}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{normalize\_arrow\_assoc}.\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{fix} \coqdocvar{normalize\_arrow\_assoc} (\coqdocvar{A} : \coqdocvar{objects}) : \coqdocvar{arrows\_assoc} \coqdocvar{A} (\coqdocvar{normalize} \coqdocvar{A}) :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvar{A} \coqdockw{as} \coqdocvar{A0} \coqdockw{return} (\coqdocvar{arrows\_assoc} \coqdocvar{A0} (\coqdocvar{normalize} \coqdocvar{A0})) \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{letter} \coqdocvar{l} \ensuremath{\Rightarrow} \coqdocvar{unitt\_assoc} (\coqdocvar{letter} \coqdocvar{l})\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{A1} /\symbol{92}0 \coqdocvar{A2} \ensuremath{\Rightarrow} \coqdocvar{normalize\_aux\_unitrefl\_assoc} (\coqdocvar{normalize\_arrow\_assoc} \coqdocvar{A1}) \coqdocvar{A2}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}\coqdoceol
+\coqdocindent{2.50em}
+: \coqdockw{\ensuremath{\forall}} \coqdocvar{A} : \coqdocvar{objects}, \coqdocvar{arrows\_assoc} \coqdocvar{A} (\coqdocvar{normalize} \coqdocvar{A})
+
+\coqdocemptyline
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Check} \coqdoclemma{th151} : \coqdockw{\ensuremath{\forall}} \coqdocvar{A} : \coqdocinductive{objects}, \coqdocinductive{normal} \coqdocvariable{A} \ensuremath{\rightarrow} \coqdocdefinition{normalize} \coqdocvariable{A} \coqexternalref{:type scope:x '=' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Logic}{\coqdocnotation{=}} \coqdocvariable{A}.\coqdoceol
+\end{coqdoccode}
+Aborted th270: For local variable \coqdocvar{A} with \coqdocvar{normal} \coqdocvar{A},
+although there is the propositional equality \coqdocvar{th151}: \coqdocvar{normalize} \coqdocvar{A} = \coqdocvar{A},
+that \coqdocvar{normalize} \coqdocvar{A}, \coqdocvar{A} are not convertible (definitionally/meta equal);
+therefore one shall not regard \coqdocvar{normalize\_unitrefl\_assoc}, \coqdocvar{unitt} \coqdocvar{A} as sharing
+the same domain-codomain indices of \coqdocvar{arrows\_assoc} \begin{coqdoccode}
+\coqdocemptyline
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Check} \coqdoclemma{th260} : \coqdockw{\ensuremath{\forall}} \coqdocvar{N} \coqdocvar{P} : \coqdocinductive{objects}, \coqdocinductive{arrows\_assoc} \coqdocvariable{N} \coqdocvariable{P} \ensuremath{\rightarrow} \coqdocdefinition{normalize} \coqdocvariable{N} \coqexternalref{:type scope:x '=' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Logic}{\coqdocnotation{=}} \coqdocdefinition{normalize} \coqdocvariable{P}.\coqdoceol
+\end{coqdoccode}
+Aborted lemma\_coherence\_assoc0: For local variables \coqdocvar{N}, \coqdocvar{P} with \coqdocvar{arrows\_assoc} \coqdocvar{N} \coqdocvar{P},
+although there is the propositional equality \coqdocvar{th260}: \coqdocvar{normalize} \coqdocvar{N} = \coqdocvar{normalize} \coqdocvar{P},
+that \coqdocvar{normalize} \coqdocvar{A}, \coqdocvar{normalize} \coqdocvar{B} are not convertible (definitionally/meta equal);
+therefore some transport other than \coqdocvar{eq\_rect}, some coherent transport is lacked. \begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Check} \coqdocdefinition{normalize\_aux\_map\_assoc}\coqdoceol
+\coqdocindent{3.00em}
+: \coqdockw{\ensuremath{\forall}} (\coqdocvar{X} \coqdocvar{Y} : \coqdocinductive{objects}) (\coqdocvar{x} : \coqdocinductive{arrows\_assoc} \coqdocvariable{X} \coqdocvariable{Y}) (\coqdocvar{Z} : \coqdocinductive{objects})\coqdoceol
+\coqdocindent{4.50em}
+(\coqdocvar{y} : \coqdocinductive{arrows\_assoc} \coqdocvariable{Y} \coqdocvariable{Z}),\coqdoceol
+\coqdocindent{3.50em}
+\coqdocinductive{directed} \coqdocvariable{y} \ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{3.50em}
+\coqdockw{\ensuremath{\forall}} (\coqdocvar{A} \coqdocvar{B} : \coqdocinductive{objects}) (\coqdocvar{f} : \coqdocinductive{arrows\_assoc} \coqdocvariable{A} \coqdocvariable{B}),\coqdoceol
+\coqdocindent{3.50em}
+\coqexternalref{:type scope:'x7B' x ':' x 'x26' x 'x7D'}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Specif}{\coqdocnotation{\{}}\coqdocvar{y\_map} \coqexternalref{:type scope:'x7B' x ':' x 'x26' x 'x7D'}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Specif}{\coqdocnotation{:}} \coqdocinductive{arrows\_assoc} (\coqdocvariable{Y} \coqdocnotation{</\symbol{92}0} \coqdocvariable{A}) (\coqdocvariable{Z} \coqdocnotation{</\symbol{92}0} \coqdocvariable{B}) \coqexternalref{:type scope:'x7B' x ':' x 'x26' x 'x7D'}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Specif}{\coqdocnotation{\&}}\coqdoceol
+\coqdocindent{3.50em}
+(\coqexternalref{:type scope:x '*' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocnotation{(}}\coqdocvar{y\_map} \coqdocnotation{<}\coqdocnotation{oa} \coqref{assoc.normalize aux unitrefl assoc}{\coqdocabbreviation{normalize\_aux\_unitrefl\_assoc}} \coqdocvariable{x} \coqdocvariable{A} \coqref{assoc.::x 'x7Ea' x}{\coqdocnotation{\ensuremath{\sim}}}\coqref{assoc.::x 'x7Ea' x}{\coqdocnotation{a}}\coqdoceol
+\coqdocindent{4.50em}
+\coqref{assoc.normalize aux unitrefl assoc}{\coqdocabbreviation{normalize\_aux\_unitrefl\_assoc}} \coqdocvariable{y} \coqdocvariable{B} \coqdocnotation{<}\coqdocnotation{oa} \coqdocvariable{x} \coqdocnotation{/\symbol{92}1}\coqdocnotation{a} \coqdocvariable{f}\coqexternalref{:type scope:x '*' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocnotation{)}} \coqexternalref{:type scope:x '*' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocnotation{\ensuremath{\times}}} \coqdocinductive{directed} \coqdocvar{y\_map})\%\coqdocvar{type}\coqexternalref{:type scope:'x7B' x ':' x 'x26' x 'x7D'}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Specif}{\coqdocnotation{\}}}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Check} \coqdocdefinition{normalize\_map\_assoc}\coqdoceol
+\coqdocindent{2.50em}
+: \coqdockw{\ensuremath{\forall}} (\coqdocvar{A} \coqdocvar{B} : \coqdocinductive{objects}) (\coqdocvar{f} : \coqdocinductive{arrows\_assoc} \coqdocvariable{A} \coqdocvariable{B}),\coqdoceol
+\coqdocindent{3.50em}
+\coqexternalref{:type scope:'x7B' x ':' x 'x26' x 'x7D'}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Specif}{\coqdocnotation{\{}}\coqdocvar{y\_map} \coqexternalref{:type scope:'x7B' x ':' x 'x26' x 'x7D'}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Specif}{\coqdocnotation{:}} \coqdocinductive{arrows\_assoc} (\coqdocdefinition{normalize} \coqdocvariable{A}) (\coqdocdefinition{normalize} \coqdocvariable{B}) \coqexternalref{:type scope:'x7B' x ':' x 'x26' x 'x7D'}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Specif}{\coqdocnotation{\&}}\coqdoceol
+\coqdocindent{3.50em}
+(\coqexternalref{:type scope:x '*' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocnotation{(}}\coqdocvar{y\_map} \coqdocnotation{<}\coqdocnotation{oa} \coqref{assoc.normalize unitrefl assoc}{\coqdocabbreviation{normalize\_unitrefl\_assoc}} \coqdocvariable{A} \coqref{assoc.::x 'x7Ea' x}{\coqdocnotation{\ensuremath{\sim}}}\coqref{assoc.::x 'x7Ea' x}{\coqdocnotation{a}}\coqdoceol
+\coqdocindent{4.50em}
+\coqref{assoc.normalize unitrefl assoc}{\coqdocabbreviation{normalize\_unitrefl\_assoc}} \coqdocvariable{B} \coqdocnotation{<}\coqdocnotation{oa} \coqdocvariable{f}\coqexternalref{:type scope:x '*' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocnotation{)}} \coqexternalref{:type scope:x '*' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocnotation{\ensuremath{\times}}} \coqdocinductive{directed} \coqdocvar{y\_map})\%\coqdocvar{type}\coqexternalref{:type scope:'x7B' x ':' x 'x26' x 'x7D'}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Specif}{\coqdocnotation{\}}}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Print} \coqdockw{Assumptions} \coqdocdefinition{normalize\_map\_assoc}.\coqdoceol
+\coqdocemptyline
+\end{coqdoccode}
+ERRORS OF DOSEN: 1. CONFUSE MIXUP CONVERTIBLE (DEFINITIONALLY/META EQUAL) WITH 
+PROPOSITIONAL EQUAL WHEN THE THINGS ARE VARIABLES INSTEAD OF FULLY CONSTRUCTOR-ED
+ EXPLICIT TERMS, 2. RELATED TO THIS IS THE COMPUTATIONNALLY WRONG ORDER 
+OF HES PRESENTATION 
+
+\section{Dosen Semiassociative Coherence}
+
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{nodes}.\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Inductive} \coqdocvar{nodes} : \coqdocvar{objects} \ensuremath{\rightarrow} \coqdockw{Set} :=\coqdoceol
+\coqdocindent{2.00em}
+\coqdocvar{self} : \coqdockw{\ensuremath{\forall}} \coqdocvar{A} : \coqdocvar{objects}, \coqdocvar{A}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{at\_left} : \coqdockw{\ensuremath{\forall}} \coqdocvar{A} : \coqdocvar{objects}, \coqdocvar{A} \ensuremath{\rightarrow} \coqdockw{\ensuremath{\forall}} \coqdocvar{B} : \coqdocvar{objects}, \coqdocvar{A} /\symbol{92}0 \coqdocvar{B}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{at\_right} : \coqdockw{\ensuremath{\forall}} \coqdocvar{A} \coqdocvar{B} : \coqdocvar{objects}, \coqdocvar{B} \ensuremath{\rightarrow} \coqdocvar{A} /\symbol{92}0 \coqdocvar{B}.
+
+\coqdocemptyline
+ \begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Infix} \coqdef{assoc.::x '<r' x}{"}{"}<r" := \coqdocinductive{lt\_right} (\coqdoctac{at} \coqdockw{level} 70).\coqdoceol
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{lt\_right}.\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Inductive} \coqdocvar{lt\_right} : \coqdockw{\ensuremath{\forall}} \coqdocvar{A} : \coqdocvar{objects}, \coqdocvar{A} \ensuremath{\rightarrow} \coqdocvar{A} \ensuremath{\rightarrow} \coqdockw{Set} :=\coqdoceol
+\coqdocindent{2.00em}
+\coqdocvar{lt\_right\_cons1} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{B} : \coqdocvar{objects}) (\coqdocvar{z} : \coqdocvar{B}) (\coqdocvar{C} : \coqdocvar{objects}),\coqdoceol
+\coqdocindent{10.50em}
+\coqdocvar{self} (\coqdocvar{C} /\symbol{92}0 \coqdocvar{B}) <\coqdocvar{r} \coqdocvar{at\_right} \coqdocvar{C} \coqdocvar{z}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{lt\_right\_cons2} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{B} \coqdocvar{C} : \coqdocvar{objects}) (\coqdocvar{x} \coqdocvar{y} : \coqdocvar{B}),\coqdoceol
+\coqdocindent{10.50em}
+\coqdocvar{x} <\coqdocvar{r} \coqdocvar{y} \ensuremath{\rightarrow} \coqdocvar{at\_left} \coqdocvar{x} \coqdocvar{C} <\coqdocvar{r} \coqdocvar{at\_left} \coqdocvar{y} \coqdocvar{C}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{lt\_right\_cons3} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{B} \coqdocvar{C} : \coqdocvar{objects}) (\coqdocvar{x} \coqdocvar{y} : \coqdocvar{B}),\coqdoceol
+\coqdocindent{10.50em}
+\coqdocvar{x} <\coqdocvar{r} \coqdocvar{y} \ensuremath{\rightarrow} \coqdocvar{at\_right} \coqdocvar{C} \coqdocvar{x} <\coqdocvar{r} \coqdocvar{at\_right} \coqdocvar{C} \coqdocvar{y}.
+
+\coqdocemptyline
+ \begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Notation} \coqdef{assoc.comparable}{comparable}{\coqdocabbreviation{comparable}} \coqdocvar{A} \coqdocvar{B} := \coqexternalref{:type scope:'x7B' x ':' x '|' x 'x7D'}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Specif}{\coqdocnotation{\{}}\coqdocvar{f} \coqexternalref{:type scope:'x7B' x ':' x '|' x 'x7D'}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Specif}{\coqdocnotation{:}} \coqdocinductive{arrows\_assoc} \coqdocvar{A} \coqdocvar{B} \coqexternalref{:type scope:'x7B' x ':' x '|' x 'x7D'}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Specif}{\coqdocnotation{\ensuremath{|}}} \coqexternalref{True}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Logic}{\coqdocinductive{True}}\coqexternalref{:type scope:'x7B' x ':' x '|' x 'x7D'}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Specif}{\coqdocnotation{\}}} (\coqdocvar{only} \coqdocvar{parsing}).\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Check} \coqdocdefinition{bracket\_left\_on\_nodes}\coqdoceol
+\coqdocindent{2.50em}
+: \coqdockw{\ensuremath{\forall}} \coqdocvar{A} \coqdocvar{B} \coqdocvar{C} : \coqdocinductive{objects}, \coqdocinductive{nodes} (\coqdocvariable{A} \coqdocnotation{/\symbol{92}0} \coqdocnotation{(}\coqdocvariable{B} \coqdocnotation{/\symbol{92}0} \coqdocvariable{C}\coqdocnotation{)}) \ensuremath{\rightarrow} \coqdocinductive{nodes} (\coqdocnotation{(}\coqdocvariable{A} \coqdocnotation{/\symbol{92}0} \coqdocvariable{B}\coqdocnotation{)} \coqdocnotation{/\symbol{92}0} \coqdocvariable{C}).\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdoceol
+\coqdocnoindent
+\coqdockw{Definition} \coqdocvar{bracket\_left\_on\_nodes} (\coqdocvar{A} \coqdocvar{B} \coqdocvar{C} : \coqdocvar{objects}) ( \coqdocvar{x} : \coqdocvar{nodes} (\coqdocvar{A} \ensuremath{\land} (\coqdocvar{B} \ensuremath{\land} \coqdocvar{C})) ) : \coqdocvar{nodes} ((\coqdocvar{A} \ensuremath{\land} \coqdocvar{B}) \ensuremath{\land} \coqdocvar{C}).\coqdoceol
+\coqdocnoindent
+\coqdoceol
+\coqdocnoindent
+\coqdoctac{dependent} \coqdoctac{destruction} \coqdocvar{x}.\coqdoceol
+\coqdocnoindent
+\coqdoctac{exact} (\coqdocvar{at\_left} (\coqdocvar{self} (\coqdocvar{A} \ensuremath{\land} \coqdocvar{B})) \coqdocvar{C}).\coqdoceol
+\coqdocnoindent
+\coqdoctac{exact} (\coqdocvar{at\_left} (\coqdocvar{at\_left} \coqdocvar{x} \coqdocvar{B}) \coqdocvar{C}).\coqdoceol
+\coqdocnoindent
+\coqdoctac{dependent} \coqdoctac{destruction} \coqdocvar{x}.\coqdoceol
+\coqdocnoindent
+\coqdoctac{exact} (\coqdocvar{self} ((\coqdocvar{A} \ensuremath{\land} \coqdocvar{B}) \ensuremath{\land} \coqdocvar{C})).\coqdoceol
+\coqdocnoindent
+\coqdoctac{exact} (\coqdocvar{at\_left} (\coqdocvar{at\_right} \coqdocvar{A} \coqdocvar{x}) \coqdocvar{C}).\coqdoceol
+\coqdocnoindent
+\coqdoctac{exact} (\coqdocvar{at\_right} (\coqdocvar{A} \ensuremath{\land} \coqdocvar{B}) \coqdocvar{x}).\coqdoceol
+\coqdocnoindent
+\coqdockw{Defined}.
+
+\coqdocemptyline
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Check} \coqdocdefinition{arrows\_assoc\_on\_nodes} : \coqdockw{\ensuremath{\forall}} \coqdocvar{A} \coqdocvar{B} : \coqdocinductive{objects}, \coqdocinductive{arrows\_assoc} \coqdocvariable{A} \coqdocvariable{B} \ensuremath{\rightarrow} \coqdocinductive{nodes} \coqdocvariable{A} \ensuremath{\rightarrow} \coqdocinductive{nodes} \coqdocvariable{B}.\coqdoceol
+\coqdocemptyline
+\end{coqdoccode}
+Soundness. \begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Check} \coqdoclemma{lem033} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{A} \coqdocvar{B} : \coqdocinductive{objects}) (\coqdocvar{f} : \coqdocinductive{arrows} \coqdocvariable{A} \coqdocvariable{B}) (\coqdocvar{x} \coqdocvar{y} : \coqdocvariable{A}),\coqdoceol
+\coqdocindent{3.50em}
+\coqdocvariable{f} \coqdocvariable{x} \coqref{assoc.::x '<r' x}{\coqdocnotation{<}}\coqref{assoc.::x '<r' x}{\coqdocnotation{r}} \coqdocvariable{f} \coqdocvariable{y} \ensuremath{\rightarrow} \coqdocvariable{x} \coqref{assoc.::x '<r' x}{\coqdocnotation{<}}\coqref{assoc.::x '<r' x}{\coqdocnotation{r}} \coqdocvariable{y}.\coqdoceol
+\coqdocemptyline
+\end{coqdoccode}
+Completeness. Deep ('well-founded') induction on \coqdocvar{lengthn'{}'},
+with accumulator/continuation \coqdocvar{cumul\_letteries}. \begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Check} \coqdoclemma{lemma\_completeness} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{B} \coqdocvar{A} : \coqdocinductive{objects}) (\coqdocvar{f} : \coqdocinductive{arrows\_assoc} \coqdocvariable{B} \coqdocvariable{A})\coqdoceol
+\coqdocindent{17.00em}
+(\coqdocvar{H\_cumul\_lt\_right\_B} : \coqdockw{\ensuremath{\forall}} \coqdocvar{x} \coqdocvar{y} : \coqdocinductive{nodes} \coqdocvariable{B}, \coqdocinductive{lt\_right} \coqdocvariable{x} \coqdocvariable{y} \ensuremath{\rightarrow} \coqdocinductive{lt\_right} (\coqdocvariable{f} \coqdocvariable{x}) (\coqdocvariable{f} \coqdocvariable{y}))\coqdoceol
+\coqdocindent{13.50em}
+, \coqdocinductive{arrows} \coqdocvariable{A} \coqdocvariable{B}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Check} \coqdoclemma{lem005700}: \coqdockw{\ensuremath{\forall}} (\coqdocvar{B} : \coqdocinductive{objects}) (\coqdocvar{len} : \coqexternalref{nat}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocinductive{nat}}),\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{\ensuremath{\forall}} (\coqdocvar{cumul\_letteries} : \coqdocinductive{nodes} \coqdocvariable{B} \ensuremath{\rightarrow} \coqexternalref{bool}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocinductive{bool}})\coqdoceol
+\coqdocindent{4.50em}
+(\coqdocvar{H\_cumul\_letteries\_wellform} : \coqdocabbreviation{cumul\_letteries\_wellform'} \coqdocvariable{B} \coqdocvariable{cumul\_letteries})\coqdoceol
+\coqdocindent{4.50em}
+(\coqdocvar{H\_cumul\_letteries\_satur} : \coqdockw{\ensuremath{\forall}} \coqdocvar{y} : \coqdocinductive{nodes} \coqdocvariable{B}, \coqdocvariable{cumul\_letteries} \coqdocvariable{y} \coqexternalref{:type scope:x '=' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Logic}{\coqdocnotation{=}} \coqexternalref{true}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocconstructor{true}} \coqdoceol
+\coqdocindent{28.00em}
+\ensuremath{\rightarrow} \coqdockw{\ensuremath{\forall}} \coqdocvar{z} : \coqdocinductive{nodes} \coqdocvariable{B}, \coqdocabbreviation{lt\_leftorright\_eq} \coqdocvariable{y} \coqdocvariable{z} \ensuremath{\rightarrow} \coqdocvariable{cumul\_letteries} \coqdocvariable{z} \coqexternalref{:type scope:x '=' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Logic}{\coqdocnotation{=}} \coqexternalref{true}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocconstructor{true}})\coqdoceol
+\coqdocindent{4.50em}
+(\coqdocvar{H\_len} : \coqdocdefinition{lengthn'{}'} \coqdocvariable{cumul\_letteries} \coqdocvariable{H\_cumul\_letteries\_wellform} \coqexternalref{:nat scope:x '<=' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Peano}{\coqdocnotation{\ensuremath{\le}}} \coqdocvariable{len}),\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{\ensuremath{\forall}} (\coqdocvar{A} : \coqdocinductive{objects}) (\coqdocvar{f} : \coqdocinductive{arrows\_assoc} \coqdocvariable{B} \coqdocvariable{A})\coqdoceol
+\coqdocindent{4.50em}
+(\coqdocvar{H\_node\_is\_lettery} : \coqdockw{\ensuremath{\forall}} \coqdocvar{x} : \coqdocinductive{nodes} \coqdocvariable{B}, \coqdocvariable{cumul\_letteries} \coqdocvariable{x} \coqexternalref{:type scope:x '=' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Logic}{\coqdocnotation{=}} \coqexternalref{true}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocconstructor{true}} \ensuremath{\rightarrow} \coqdocabbreviation{node\_is\_lettery} \coqdocvariable{f} \coqdocvariable{x})\coqdoceol
+\coqdocindent{4.50em}
+(\coqdocvar{H\_object\_at\_node} : \coqdockw{\ensuremath{\forall}} \coqdocvar{x} : \coqdocinductive{nodes} \coqdocvariable{B}, \coqdocvariable{cumul\_letteries} \coqdocvariable{x} \coqexternalref{:type scope:x '=' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Logic}{\coqdocnotation{=}} \coqexternalref{true}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocconstructor{true}} \ensuremath{\rightarrow} \coqdocdefinition{object\_at\_node} \coqdocvariable{x} \coqexternalref{:type scope:x '=' x}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Logic}{\coqdocnotation{=}} \coqdocdefinition{object\_at\_node} (\coqdocvariable{f} \coqdocvariable{x}))\coqdoceol
+\coqdocindent{4.50em}
+(\coqdocvar{H\_cumul\_B} : \coqdockw{\ensuremath{\forall}} \coqdocvar{x} \coqdocvar{y} : \coqdocinductive{nodes} \coqdocvariable{B}, \coqdocinductive{lt\_right} \coqdocvariable{x} \coqdocvariable{y} \ensuremath{\rightarrow} \coqdocinductive{lt\_right} (\coqdocvariable{f} \coqdocvariable{x}) (\coqdocvariable{f} \coqdocvariable{y}))\coqdoceol
+\coqdocindent{1.00em}
+, \coqdocinductive{arrows} \coqdocvariable{A} \coqdocvariable{B}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Print} \coqdockw{Assumptions} \coqdoclemma{lem005700}.\coqdoceol
+\end{coqdoccode}
+Get two equivalent axioms.  \coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdocvar{JMeq.JMeq\_eq} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{A} : \coqdockw{Type}) (\coqdocvar{x} \coqdocvar{y} : \coqdocvar{A}), \coqdocvar{JMeq.JMeq} \coqdocvar{x} \coqdocvar{y} \ensuremath{\rightarrow} \coqdocvar{x} = \coqdocvar{y}\coqdoceol
+\coqdocnoindent
+\coqdocvar{Eqdep.Eq\_rect\_eq.eq\_rect\_eq} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{U} : \coqdockw{Type}) (\coqdocvar{p} : \coqdocvar{U}) (\coqdocvar{Q} : \coqdocvar{U} \ensuremath{\rightarrow} \coqdockw{Type})\coqdoceol
+\coqdocindent{16.00em}
+(\coqdocvar{x} : \coqdocvar{Q} \coqdocvar{p}) (\coqdocvar{h} : \coqdocvar{p} = \coqdocvar{p}), \coqdocvar{x} = \coqdocvar{eq\_rect} \coqdocvar{p} \coqdocvar{Q} \coqdocvar{x} \coqdocvar{p} \coqdocvar{h}
+
+\coqdocemptyline
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Infix} \coqdef{assoc.::x '<l' x}{"}{"}<l" := \coqdocinductive{lt\_left} (\coqdoctac{at} \coqdockw{level} 70).\coqdoceol
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{lt\_left}.\coqdoceol
+\coqdocemptyline
+\end{coqdoccode}
+Maybe some betterement revision/egition by using \coqdocvar{objects\_same} is necessary here.
+ Contrast this eq with \coqdocvar{objects\_same} \begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{lt\_leftorright\_eq}.\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Notation} \coqdocvar{lt\_leftorright\_eq} \coqdocvar{x} \coqdocvar{y} :=\coqdoceol
+\coqdocindent{1.00em}
+(\coqdocvar{sum} (\coqdocvar{eq} \coqdocvar{x} \coqdocvar{y}) (\coqdocvar{sum} (\coqdocvar{lt\_left} \coqdocvar{x} \coqdocvar{y}) (\coqdocvar{lt\_right} \coqdocvar{x} \coqdocvar{y}))).
+
+\coqdocemptyline
+
+
+ \coqdocvar{nodal\_multi\_bracket\_left\_full} below and later really lack this constructive equality \coqdocvar{objects\_same},
+so that we get transport map which are coherent, transport map other than \coqdocvar{eq\_rect} \begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{objects\_same}.\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Inductive} \coqdocvar{objects\_same} : \coqdocvar{objects} \ensuremath{\rightarrow} \coqdocvar{objects} \ensuremath{\rightarrow} \coqdockw{Set} :=\coqdoceol
+\coqdocindent{2.00em}
+\coqdocvar{objects\_same\_cons1} : \coqdockw{\ensuremath{\forall}} \coqdocvar{l} : \coqdocvar{letters},\coqdoceol
+\coqdocindent{12.50em}
+\coqdocvar{objects\_same} (\coqdocvar{letter} \coqdocvar{l}) (\coqdocvar{letter} \coqdocvar{l})\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{objects\_same\_cons2} : \coqdockw{\ensuremath{\forall}} \coqdocvar{A} \coqdocvar{A'} : \coqdocvar{objects},\coqdoceol
+\coqdocindent{12.50em}
+\coqdocvar{objects\_same} \coqdocvar{A} \coqdocvar{A'} \ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{12.50em}
+\coqdockw{\ensuremath{\forall}} \coqdocvar{B} \coqdocvar{B'} : \coqdocvar{objects},\coqdoceol
+\coqdocindent{12.50em}
+\coqdocvar{objects\_same} \coqdocvar{B} \coqdocvar{B'} \ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{12.50em}
+\coqdocvar{objects\_same} (\coqdocvar{A} /\symbol{92}0 \coqdocvar{B}) (\coqdocvar{A'} /\symbol{92}0 \coqdocvar{B'}).
+
+\coqdocemptyline
+
+
+ \coqdocvar{nodal\_multi\_bracket\_left\_full} is one of the most complicated/multifolded construction
+in this coq text. \coqdocvar{nodal\_multi\_bracket\_left\_full} below and later really lack this constructive equality \coqdocvar{objects\_same},
+so that we get transport map which are coherent, transport map other than \coqdocvar{eq\_rect} \begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Print} "/\symbol{92}\symbol{92}".\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocindent{0.50em}
+\coqdockw{fix} \coqdocvar{foldright} (\coqdocvar{A} : \coqdocvar{objects}) (\coqdocvar{Dlist} : \coqdocvar{list} \coqdocvar{objects}) \{\coqdockw{struct} \coqdocvar{Dlist}\} :\coqdoceol
+\coqdocindent{1.00em}
+\coqdocvar{objects} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvar{Dlist} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{nil} \ensuremath{\Rightarrow} \coqdocvar{A}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} (\coqdocvar{D0} :: \coqdocvar{Dlist0})\%\coqdocvar{list} \ensuremath{\Rightarrow} \coqdocvar{foldright} \coqdocvar{A} \coqdocvar{Dlist0} /\symbol{92}0 \coqdocvar{D0} 
+
+\coqdocemptyline
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Check} \coqdocdefinition{multi\_bracket\_left} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{A} \coqdocvar{B} \coqdocvar{C} : \coqdocinductive{objects}) (\coqdocvar{Dlist} : \coqexternalref{list}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocinductive{list}} \coqdocinductive{objects}),\coqdoceol
+\coqdocindent{3.50em}
+\coqdocinductive{arrows} (\coqdocvariable{A} \coqdocnotation{/\symbol{92}0} \coqdocnotation{(}\coqdocvariable{B} \coqdocnotation{/\symbol{92}0} \coqdocvariable{C} \coqdocnotation{/\symbol{92}\symbol{92}} \coqdocvariable{Dlist}\coqdocnotation{)}) (\coqdocnotation{(}\coqdocvariable{A} \coqdocnotation{/\symbol{92}0} \coqdocvariable{B}\coqdocnotation{)} \coqdocnotation{/\symbol{92}0} \coqdocvariable{C} \coqdocnotation{/\symbol{92}\symbol{92}} \coqdocvariable{Dlist}).\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Check} (\coqdockw{fun} \coqdocvar{A} (\coqdocvar{x} : \coqdocinductive{nodes} \coqdocvariable{A}) (\coqdocvar{A2} \coqdocvar{B2} \coqdocvar{C2} : \coqdocinductive{objects}) (\coqdocvar{Dlist2} : \coqexternalref{list}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocinductive{list}} \coqdocinductive{objects}) \ensuremath{\Rightarrow}\coqdoceol
+\coqdocindent{2.00em}
+@\coqdocdefinition{nodal\_multi\_bracket\_left\_full} \coqdocvariable{A} \coqdocvariable{x} \coqdocvariable{A2} \coqdocvariable{B2} \coqdocvariable{C2} \coqdocvariable{Dlist2}).\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{object\_at\_node}.\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdocvar{object\_at\_node} = \coqdoceol
+\coqdocnoindent
+\coqdockw{fix} \coqdocvar{object\_at\_node} (\coqdocvar{A} : \coqdocvar{objects}) (\coqdocvar{x} : \coqdocvar{A}) \{\coqdockw{struct} \coqdocvar{x}\} : \coqdocvar{objects} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match} \coqdocvar{x} \coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{self} \coqdocvar{A0} \ensuremath{\Rightarrow} \coqdocvar{A0}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{at\_left} \coqdocvar{A0} \coqdocvar{x0} \coqdocvar{\_} \ensuremath{\Rightarrow} \coqdocvar{object\_at\_node} \coqdocvar{A0} \coqdocvar{x0}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{at\_right} \coqdocvar{\_} \coqdocvar{B} \coqdocvar{x0} \ensuremath{\Rightarrow} \coqdocvar{object\_at\_node} \coqdocvar{B} \coqdocvar{x0}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end}
+
+\coqdocemptyline
+
+
+ \coqdocvar{object\_is\_letter} is some particularised sigma type so to do 
+convertibility (definitinal/meta equality) instantiatiations instead and avoid
+propositional equalities. \begin{coqdoccode}
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{object\_is\_letter}.\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Inductive} \coqdocvar{object\_is\_letter} : \coqdocvar{objects} \ensuremath{\rightarrow} \coqdockw{Set} :=\coqdoceol
+\coqdocindent{2.00em}
+\coqdocvar{object\_is\_letter\_cons} : \coqdockw{\ensuremath{\forall}} \coqdocvar{l} : \coqdocvar{letters}, \coqdocvar{object\_is\_letter} (\coqdocvar{letter} \coqdocvar{l}).
+
+\coqdocemptyline
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{object\_is\_tensor}.\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{node\_is\_letter}.\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Notation} \coqdocvar{node\_is\_letter} \coqdocvar{x} := (\coqdocvar{object\_is\_letter} (\coqdocvar{object\_at\_node} \coqdocvar{x})).
+
+\coqdocemptyline
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{node\_is\_tensor}.\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Notation} \coqdocvar{node\_is\_tensor} \coqdocvar{x} := (\coqdocvar{object\_is\_tensor} (\coqdocvar{object\_at\_node} \coqdocvar{x})).
+
+\coqdocemptyline
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{node\_is\_lettery}.\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Notation} \coqdocvar{node\_is\_lettery} \coqdocvar{f} \coqdocvar{w} := \coqdoceol
+\coqdocindent{1.00em}
+(\coqdocvar{prod}\coqdoceol
+\coqdocindent{2.50em}
+( \coqdockw{\ensuremath{\forall}} (\coqdocvar{x} : \coqdocvar{nodes} \coqdocvar{\_}), \coqdocvar{lt\_leftorright\_eq} \coqdocvar{w} \coqdocvar{x} \ensuremath{\rightarrow} \coqdocvar{lt\_leftorright\_eq} (\coqdocvar{f} \coqdocvar{w}) (\coqdocvar{f} \coqdocvar{x}) )\coqdoceol
+\coqdocindent{2.50em}
+( \coqdockw{\ensuremath{\forall}} (\coqdocvar{x} : \coqdocvar{nodes} \coqdocvar{\_}), \coqdocvar{lt\_leftorright\_eq} (\coqdocvar{f} \coqdocvar{w}) (\coqdocvar{f} \coqdocvar{x}) \ensuremath{\rightarrow} \coqdocvar{lt\_leftorright\_eq} ((\coqdocvar{rev} \coqdocvar{f}) (\coqdocvar{f} \coqdocvar{w})) ((\coqdocvar{rev} \coqdocvar{f}) (\coqdocvar{f} \coqdocvar{x})) )).
+
+\coqdocemptyline
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{cumul\_letteries\_wellform'}.\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Notation} \coqdocvar{cumul\_letteries\_wellform'} \coqdocvar{B} \coqdocvar{cumul\_letteries} :=\coqdoceol
+\coqdocindent{1.00em}
+(\coqdockw{\ensuremath{\forall}} \coqdocvar{x} : \coqdocvar{B},\coqdoceol
+\coqdocindent{1.50em}
+\coqdocvar{object\_is\_letter} (\coqdocvar{object\_at\_node} \coqdocvar{x}) \ensuremath{\rightarrow} \coqdocvar{eq} (\coqdocvar{cumul\_letteries} \coqdocvar{x}) \coqdocvar{true}).
+
+\coqdocemptyline
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Print} \coqdocvar{lengthn'{}'} .\coqdoceol
+\end{coqdoccode}
+\coqdoceol
+\coqdocemptyline
+\coqdocnoindent
+\coqdocvar{lengthn'{}'} = \coqdoceol
+\coqdocnoindent
+\coqdockw{fix} \coqdocvar{lengthn'{}'} (\coqdocvar{A} : \coqdocvar{objects}) (\coqdocvar{cumul\_letteries} : \coqdocvar{A} \ensuremath{\rightarrow} \coqdocvar{bool})\coqdoceol
+\coqdocindent{7.00em}
+(\coqdocvar{H\_cumul\_letteries\_wellform} : \coqdocvar{cumul\_letteries\_wellform'} \coqdocvar{A}\coqdoceol
+\coqdocindent{23.00em}
+\coqdocvar{cumul\_letteries}) \{\coqdockw{struct} \coqdocvar{A}\} :\coqdoceol
+\coqdocindent{1.00em}
+\coqdocvar{nat} :=\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{match}\coqdoceol
+\coqdocindent{2.00em}
+\coqdocvar{A} \coqdockw{as} \coqdocvar{o}\coqdoceol
+\coqdocindent{2.00em}
+\coqdockw{return}\coqdoceol
+\coqdocindent{3.00em}
+(\coqdockw{\ensuremath{\forall}} \coqdocvar{cumul\_letteries0} : \coqdocvar{o} \ensuremath{\rightarrow} \coqdocvar{bool},\coqdoceol
+\coqdocindent{3.50em}
+\coqdocvar{cumul\_letteries\_wellform'} \coqdocvar{o} \coqdocvar{cumul\_letteries0} \ensuremath{\rightarrow} \coqdocvar{nat})\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{with}\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{letter} \coqdocvar{l} \ensuremath{\Rightarrow}\coqdoceol
+\coqdocindent{3.00em}
+\coqdockw{fun} (\coqdocvar{cumul\_letteries0} : \coqdocvar{letter} \coqdocvar{l} \ensuremath{\rightarrow} \coqdocvar{bool})\coqdoceol
+\coqdocindent{4.00em}
+(\coqdocvar{\_} : \coqdocvar{cumul\_letteries\_wellform'} (\coqdocvar{letter} \coqdocvar{l}) \coqdocvar{cumul\_letteries0}) \ensuremath{\Rightarrow} 1\coqdoceol
+\coqdocindent{1.00em}
+\ensuremath{|} \coqdocvar{A1} /\symbol{92}0 \coqdocvar{A2} \ensuremath{\Rightarrow}\coqdoceol
+\coqdocindent{3.00em}
+\coqdockw{fun} (\coqdocvar{cumul\_letteries0} : \coqdocvar{A1} /\symbol{92}0 \coqdocvar{A2} \ensuremath{\rightarrow} \coqdocvar{bool})\coqdoceol
+\coqdocindent{4.00em}
+(\coqdocvar{H\_cumul\_letteries\_wellform0} : \coqdocvar{cumul\_letteries\_wellform'} (\coqdocvar{A1} /\symbol{92}0 \coqdocvar{A2})\coqdoceol
+\coqdocindent{20.50em}
+\coqdocvar{cumul\_letteries0}) \ensuremath{\Rightarrow}\coqdoceol
+\coqdocindent{3.00em}
+\coqdockw{let} \coqdocvar{s} :=\coqdoceol
+\coqdocindent{4.00em}
+\coqdocvar{Sumbool.sumbool\_of\_bool} (\coqdocvar{cumul\_letteries0} (\coqdocvar{self} (\coqdocvar{A1} /\symbol{92}0 \coqdocvar{A2}))) \coqdoctac{in}\coqdoceol
+\coqdocindent{3.00em}
+\coqdockw{if} \coqdocvar{s}\coqdoceol
+\coqdocindent{3.00em}
+\coqdockw{then} 1\coqdoceol
+\coqdocindent{3.00em}
+\coqdockw{else}\coqdoceol
+\coqdocindent{3.50em}
+\coqdockw{let} \coqdocvar{IHA1} :=\coqdoceol
+\coqdocindent{4.50em}
+\coqdocvar{lengthn'{}'} \coqdocvar{A1} (\coqdocvar{restr\_left} \coqdocvar{cumul\_letteries0})\coqdoceol
+\coqdocindent{5.50em}
+(\coqdocvar{restr\_left\_wellform} \coqdocvar{cumul\_letteries0} \coqdocvar{H\_cumul\_letteries\_wellform0}) \coqdoctac{in}\coqdoceol
+\coqdocindent{3.50em}
+\coqdockw{let} \coqdocvar{IHA2} :=\coqdoceol
+\coqdocindent{4.50em}
+\coqdocvar{lengthn'{}'} \coqdocvar{A2} (\coqdocvar{restr\_right} \coqdocvar{cumul\_letteries0})\coqdoceol
+\coqdocindent{5.50em}
+(\coqdocvar{restr\_right\_wellform} \coqdocvar{cumul\_letteries0} \coqdocvar{H\_cumul\_letteries\_wellform0}) \coqdoctac{in}\coqdoceol
+\coqdocindent{3.50em}
+\coqdocvar{IHA1} + \coqdocvar{IHA2}\coqdoceol
+\coqdocindent{1.00em}
+\coqdockw{end} \coqdocvar{cumul\_letteries} \coqdocvar{H\_cumul\_letteries\_wellform}
+
+\coqdocemptyline
+\begin{coqdoccode}
+\coqdocemptyline
+\coqdocnoindent
+\coqdockw{Check} \coqdocdefinition{restr\_left} : \coqdockw{\ensuremath{\forall}} \coqdocvar{B1} \coqdocvar{B2} : \coqdocinductive{objects}, (\coqdocvariable{B1} \coqdocnotation{/\symbol{92}0} \coqdocvariable{B2} \ensuremath{\rightarrow} \coqexternalref{bool}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocinductive{bool}}) \ensuremath{\rightarrow} \coqdocvariable{B1} \ensuremath{\rightarrow} \coqexternalref{bool}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocinductive{bool}}.\coqdoceol
+\coqdocnoindent
+\coqdockw{Check} \coqdocdefinition{restr\_left\_wellform} : \coqdockw{\ensuremath{\forall}} (\coqdocvar{B1} \coqdocvar{B2} : \coqdocinductive{objects}) (\coqdocvar{cumul\_letteries} : \coqdocvariable{B1} \coqdocnotation{/\symbol{92}0} \coqdocvariable{B2} \ensuremath{\rightarrow} \coqexternalref{bool}{http://coq.inria.fr/distrib/8.4pl5/stdlib/Coq.Init.Datatypes}{\coqdocinductive{bool}}),\coqdoceol
+\coqdocindent{3.50em}
+\coqdocabbreviation{cumul\_letteries\_wellform'} (\coqdocvariable{B1} \coqdocnotation{/\symbol{92}0} \coqdocvariable{B2}) \coqdocvariable{cumul\_letteries} \ensuremath{\rightarrow}\coqdoceol
+\coqdocindent{3.50em}
+\coqdocabbreviation{cumul\_letteries\_wellform'} \coqdocvariable{B1} (\coqdocdefinition{restr\_left} \coqdocvariable{cumul\_letteries}).\coqdoceol
+\coqdocemptyline
+\end{coqdoccode}
+More at https://github.com/mozert/ . \begin{coqdoccode}
+\end{coqdoccode}

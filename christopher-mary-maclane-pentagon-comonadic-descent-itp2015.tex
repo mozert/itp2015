@@ -1,0 +1,191 @@
+%% LyX 2.1.3 created this file.  For more info, see http://www.lyx.org/.
+%% Do not edit unless you really know what you are doing.
+\documentclass[12pt,a4paper,twoside,english,BCOR7.5mm]{article}
+\usepackage[T1]{fontenc}
+\usepackage[latin9]{inputenc}
+\usepackage{color}
+\usepackage{babel}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage[all]{xy}
+\usepackage[unicode=true,
+ bookmarks=true,bookmarksnumbered=true,bookmarksopen=true,bookmarksopenlevel=2,
+ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=true]
+ {hyperref}
+\hypersetup{pdftitle={Using XY-pc in LyX},
+ pdfauthor={H. Peter Gumm},
+ pdfsubject={LyX's XY-pic manual},
+ pdfkeywords={LyX, documentation},
+ linkcolor=black, citecolor=black, urlcolor=blue, filecolor=blue,pdfpagelayout=OneColumn, pdfnewwindow=true,pdfstartview=XYZ, plainpages=false}
+
+\makeatletter
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
+\pdfpageheight\paperheight
+\pdfpagewidth\paperwidth
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
+% DO NOT ALTER THIS PREAMBLE!!!
+%
+% This preamble is designed to ensure that the file prints
+% out as advertised. If you mess with this preamble,
+% parts of this document may not print out as expected.  If you
+% have problems LaTeXing this file, please contact 
+% the documentation team
+% email: lyx-docs@lists.lyx.org
+
+\usepackage[all]{xy}
+
+% define new commands used in sec. 5.1
+\newcommand{\xyR}[1]{
+  \xydef@\xymatrixrowsep@{#1}}
+\newcommand{\xyC}[1]{
+  \xydef@\xymatrixcolsep@{#1}}
+
+\newdir{|>}{!/4.5pt/@{|}*:(1,-.2)@^{>}*:(1,+.2)@_{>}}
+
+% a pdf-bookmark for the TOC is added
+\let\myTOC\tableofcontents
+\renewcommand\tableofcontents{%
+  \pdfbookmark[1]{\contentsname}{}
+  \myTOC }
+
+% redefine the \LyX macro for PDF bookmarks
+\def\LyX{\texorpdfstring{%
+  L\kern-.1667em\lower.25em\hbox{Y}\kern-.125emX\@}
+  {LyX}}
+
+% if pdflatex is used
+\usepackage{ifpdf}
+\ifpdf
+
+% set fonts for nicer pdf view
+\IfFileExists{lmodern.sty}
+ {\usepackage{lmodern}}{}
+
+\usepackage{coqdoc}
+\usepackage{amsmath,amssymb}
+\usepackage{url}
+\usepackage{makeidx,hyperref}
+
+\fi % end if pdflatex is used
+
+\makeatother
+
+\begin{document}
+
+\title{Maclane pentagon is some comonadic descent (Rough Proof)}
+
+
+\author{Christopher Mary\\
+EGITOR.NET, https://github.com/mozert}
+\maketitle
+\begin{abstract}
+This text responds to Gross \emph{Coq Categories Experience} \cite{gross}
+and Chlipala \emph{Compositional Computational Reflection} \cite{chlipala}
+of ITP 2014. ``Compositional'' is synonymous for functional/functorial;
+``Computational Reflection'' is synonymous for monadic semantics;
+and this text attempts some comonadic descent along functorial semantics
+: Dosen semiassociative coherence covers Maclane associative coherence
+\cite{dosen}.
+\end{abstract}
+
+\section{Contents }
+
+This text responds to Gross \emph{Coq Categories Experience} \cite{gross}
+and Chlipala \emph{Compositional Computational Reflection} \cite{chlipala}
+of ITP 2014. ``Compositional'' is synonymous for functional/functorial;
+``Computational Reflection'' is synonymous for monadic semantics;
+and this text attempts some comonadic descent along functorial semantics
+: Dosen semiassociative coherence covers Maclane associative coherence
+\cite{dosen}.
+
+Categories \cite{borceuxjanelidze} \cite{borceux} study the interaction
+between reflections and limits. The basic configuration for reflections
+is : 
+\[
+\xyC{5pc}\xyR{5pc}\xymatrix{\text{CoMod}\ar[r]^{\text{{reflection}}}\ar[d]_{\text{{identity}}}\ar@{}[ddr]\sp(0.2){\underset{\Longrightarrow}{\text{unit}}} & \text{Mod}\ar[dl]^{\text{{coreflection}}}\\
+\text{CoMod}\ar[d]_{\text{{reification}}} & \ \\
+\text{Modos} & \ 
+}
+\]
+ where, for all $\text{reification}$ functor into any $\text{Modos}$
+category, the map\\
+ $(\ \_\star\text{reflection})\circ(\text{reification}\star\text{unit})$
+is bijective, or same, for all object $M'$ in $\text{CoMod}$, the
+polymorphic in $M$ map\\
+ $(\text{coreflection}\ \_\ )\circ\text{unit}_{M'}:\text{Mod}(\text{reflection }M',M)\rightarrow\text{CoMod}(M',\text{coreflection }M)$
+is bijective (and therefore also polymorphic in $M'$ with reverse
+map $\text{counit}_{M}\circ(\text{reflection }\_\ )$ whose reversal
+is polymorphically determined by $(\text{coreflection}\star\text{counit})\circ(\text{unit}\star\text{coreflection})=\text{identity}$
+and $(\text{counit}\star\text{reflection})\circ(\text{reflection}\star\text{unit})=\text{identity}$
+); and it is said that the $\text{unit}$ natural/polymorphic/commuting
+transformation is the unit of the reflection and the reflective pair
+$(\text{reification}\circ\text{coreflection},\text{reification}\star\text{unit})$
+is some coreflective (``Kan'') extension functor of the $\text{reification}$
+functor along the $\text{reflection}$ functor. 
+
+
+\section{Misc}
+
+MACLANE PENTAGON IS SOME COMONADIC DESCENT. LOGICAL COHERENCE. CATEGORICAL
+DESCENT. COQ DEDUKTI MODULO.
+
+1. LOGICAL COHERENCE -GROSS, CHLIPALA, COMONADIC FUNCTORIAL SEMANTIC,\textasciitilde{}\textasciitilde{}
+GALOIS, GROTENDIECK, GENTZEN -ERRORS OF DOSEN 1 CONFUSE MIXUP CONVERTIBLE
+(DEFINITIONALLY/META EQUAL) WITH PROPOSITIONAL EQUAL WHEN THE THINGS
+ARE VARIABLES INSTEAD OF FULLY CONSTRUCTOR-ED EXPLICIT TERMS 2. RELATED
+TO THIS IS THE COMPUTATIONNALLY WRONG ORDER OF HES PRESENTATION -METAAUTO
+LOGICAL PROGRAMMING CONTRAST REFLECTION PROGRAMMING -CATEGORICAL LOGICAL
+COHERENCE AS META REFLECTION PROGRAMMING -induction; (eval beta iota;
+auto logical unify; auto substitution rewrite); repeat ( (match goal
+| context match term => destruct); (eval beta iota; auto logical unify;
+auto substitution rewrite) ); congruence; omega; anyreflection -convert
+or logify recur or unify or substitute rewrite or reflect
+
+(... classification more than property specification subset, example:
+regurlar expression, red-black tree, closed categories, categories
+... ... recur on applied subterm or nested subterm ...)
+
+2. CATEGORICAL DESCENT -POLYMORPHIC REFLECTION (ADJUNCTION)\textasciitilde{}\textasciitilde{},
+MONADIC ADJUNCTION -INTERNALISATION -> FUNCTORIAL SATURATION (YONEDA
+FREE ALGEBRA) -TENSOR OF THEORIES -COMONADICITY SHALL BE VERY RELATED
+TO COHERENCE -KAN EXTENSIONS IS CONTEXT FOR PROOFS BY REIFICATION/REFLECTION
+-BASE FOR KAN EXTENSIONS MAYBE MODOS, MOVE FROM CARTESIAN LIMITS TO
+?? -(NORMALIZE\_ARROW\_ASSOC ON NORMAL IS REVERSIBLE THEREFORE NORMALIZE\_UNIT\_ASSOC
+IS UNIT OF REFLECTION) -SemiAssoc <--> Assoc COMONADIC , NO LACK NEWMAN
+CONFLUENCE List <--> SemiAssoc MONADIC , LACK NEWMAN CONFLUENCE, MAYBE
+\textquotedbl{}ITERCOVER RESOLUTION\textquotedbl{} ? -MORE BY INTERNALISATION
+OF COMMON COHERENCES -NOT YET FULL CATEGORICAL DESCENT FORM, PROGRAMME
+LOGICAL DOSEN AND CATEGORICAL BORCEUX 1 2 AUTO DESCENT VIEW, RELATE
+CONVERTIBILITY TYPES BY AUTORESOLUTION OR TACTIC, RELATE CANONICAL-STRUCTURE-AND-COERCION
+RESOLUTION
+
+3. COQ DEDUKTI MODULO -COQTEXT ASSOC RECURSIVE SQUARE, NO ASSOC PREORDER
+-COQTEXT SEMIASSOC COMPLETENESS, NO SEMIASSOC CONFLUENCE, NO SEMIASSOC
+PREORDER 
+
+\include{C:/Users/User/Documents/user1/tmp/hohocaml/itp2015/coherence2.v}
+\begin{thebibliography}{1}
+\bibitem{gross}Jason Gross, Adam Chlipala, David I. Spivak. \textquotedblleft Experience
+Implementing a Performant Category-Theory Library in Coq\textquotedblright .
+In: Interactive Theorem Proving. Springer, 2014.
+
+\bibitem{chlipala}Gregory Malecha, Adam Chlipala, Thomas Braibant.
+\textquotedblleft Compositional Computational Reflection\textquotedblright .
+In: Interactive Theorem Proving. Springer, 2014.
+
+\bibitem{dosen}Kosta Dosen, Zoran Petric. \textquotedblleft Proof-Theoretical
+Coherence\textquotedblright . \\
+\url{http://www.mi.sanu.ac.rs/~kosta/coh.pdf} , 2007.
+
+\bibitem{borceuxjanelidze}Francis Borceux, George Janelidze. \textquotedblleft Handbook
+of categorical algebra. Volumes 1 2 3.\textquotedblright . Cambridge
+University Press, 2001.
+
+\bibitem{borceux}Francis Borceux. \textquotedblleft Handbook of categorical
+algebra. Volumes 1 2 3.\textquotedblright . Cambridge University Press,
+1994.\end{thebibliography}
+
+\end{document}
