@@ -1,5 +1,5 @@
-#LyX 2.1 created this file. For more info see http://www.lyx.org/
-\lyxformat 474
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
 \begin_document
 \begin_header
 \textclass article
@@ -44,7 +44,10 @@
 
 \fi % end if pdflatex is used
 
-
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{fullpage}
 \usepackage{coqdoc}
 \usepackage{amsmath,amssymb}
 \usepackage{url}
@@ -55,18 +58,18 @@
 \maintain_unincluded_children false
 \language english
 \language_package default
-\inputencoding auto
+\inputencoding utf8x
 \fontencoding global
 \font_roman default
 \font_sans default
 \font_typewriter default
-\font_math auto
 \font_default_family default
 \use_non_tex_fonts false
 \font_sc false
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
+
 \graphics default
 \default_output_format pdf2
 \output_sync 0
@@ -75,10 +78,8 @@
 \paperfontsize 12
 \spacing single
 \use_hyperref true
-\pdf_title "Using XY-pc in LyX"
-\pdf_author "H. Peter Gumm"
-\pdf_subject "LyX's XY-pic manual"
-\pdf_keywords "LyX, documentation"
+\pdf_title "Maclane pentagon is some comonadic descent"
+\pdf_author "Christopher Mary"
 \pdf_bookmarks true
 \pdf_bookmarksnumbered true
 \pdf_bookmarksopen true
@@ -89,26 +90,17 @@
 \pdf_backref false
 \pdf_pdfusetitle false
 \pdf_quoted_options "linkcolor=black, citecolor=black, urlcolor=blue, filecolor=blue,pdfpagelayout=OneColumn, pdfnewwindow=true,pdfstartview=XYZ, plainpages=false"
-\papersize a4paper
+\papersize letterpaper
 \use_geometry false
-\use_package amsmath 1
-\use_package amssymb 1
-\use_package cancel 1
-\use_package esint 0
-\use_package mathdots 1
-\use_package mathtools 1
-\use_package mhchem 1
-\use_package stackrel 1
-\use_package stmaryrd 1
-\use_package undertilde 1
+\use_amsmath 2
+\use_esint 0
+\use_mhchem 1
+\use_mathdots 1
 \cite_engine basic
-\cite_engine_type default
-\biblio_style plain
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
-\suppress_date false
-\justification true
+\suppress_date true
 \use_refstyle 0
 \notefontcolor #0000ff
 \index Index
@@ -172,19 +164,42 @@ Computational Reflection
 
  is synonymous for monadic semantics; and this text attempts some comonadic
  descent along functorial semantics : Dosen semiassociative coherence covers
- Maclane associative coherence by some comonadic adjunction,
-\begin_inset Newline newline
+ Maclane associative coherence by some comonadic adjunction, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
 \end_inset
 
- 
+
 \begin_inset Formula $\text{embedding }:\ \text{SemiAssoc}\leftrightarrows\text{Assoc}\ :\text{ flattening reflection}$
 \end_inset
 
 .
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
 \begin_inset Newline newline
 \end_inset
 
- UPDATE HERE IN FEWHOURS https://github.com/mozert
+
+\end_layout
+
+\begin_layout Abstract
+Keywords : Logical Coherence • Categorical Descent • Coq Dedukti Modulo
 \end_layout
 
 \begin_layout Section
@@ -323,12 +338,17 @@ key "borceux"
 \begin_inset Formula $\text{unit}$
 \end_inset
 
- natural/polymorphic/commuting transformation is the unit of the reflection
+ natural/polymorphic/commuting transformation is the 
+\emph on
+unit of the reflection
+\emph default
  and the reflective pair 
 \begin_inset Formula $(\text{reification}\circ\text{coreflection},\text{reification}\star\text{unit})$
 \end_inset
 
- is some coreflective (
+ is some 
+\emph on
+coreflective (
 \begin_inset Quotes eld
 \end_inset
 
@@ -336,7 +356,9 @@ Kan
 \begin_inset Quotes erd
 \end_inset
 
-) extension functor of the 
+) extension functor
+\emph default
+ of the 
 \begin_inset Formula $\text{reification}$
 \end_inset
 
@@ -367,17 +389,108 @@ key "borceux"
 
 \end_inset
 
- converge to the descent technique from the functorial semantics technique
- with the monadic adjunctions technique.
- Now functorial semantics arise when one attempt to internalize the common
- phrasing of the logician model theory, and this internalization has as
- consequence the functionalization/functorialization/saturation ....tensor of
- theories ...
- Galois extensions with radical roots symmetric polynomial solvable incompatible
- with symmetry ...
- ring extension algebraic functor comonadicity.
- Gentzen prophecies; Galois-Gentzen-Galthendiek the 3 G's of math, which
- 4th G for logical recur.
+ converge to the 
+\emph on
+descent technique
+\emph default
+, this convergence is from both the 
+\emph on
+functorial semantics technique
+\emph default
+ with the 
+\emph on
+monadic adjunctions technique
+\emph default
+.
+ Now functorial semantics starts when one attempts to 
+\emph on
+internalize
+\emph default
+ the common phrasing of the logician model semantics, and this internalization
+ has as consequence some functionalization/functorialization saturation/normaliz
+ation of the original theory into some more synthetic theory; note that
+ here the congruence saturation is some instance of postfix function composition
+ and the substitution saturation is some instance of prefix function composition.
+ The 
+\begin_inset Quotes eld
+\end_inset
+
+Yoneda
+\begin_inset Quotes erd
+\end_inset
+
+/normalization lemma takes its sense here.
+ And among all the relations between synthetic theories, get the 
+\emph on
+tensor of theories
+\emph default
+, which is some 
+\emph on
+extension of theories
+\emph default
+, and which is the coproduct (disjoint union) of all the operations of the
+ component theories quotiented by extra 
+\emph on
+commutativity
+\emph default
+ between any two operations from any two distinct component theories; for
+ example the tensor of two rings with units as synthetic theories gives
+ the bimodules as functorial models.
+\end_layout
+
+\begin_layout Standard
+Now Galois says that any radical extension of all the 
+\emph on
+symmetric functions
+\emph default
+ in some indeterminates, which also contains those indeterminates, is abe
+ to be incrementally/resolvably saturated/
+\begin_inset Quotes eld
+\end_inset
+
+algebra
+\begin_inset Quotes erd
+\end_inset
+
+ as some further radical extension whose interesting endomorphisms include
+ all the permutations of the indeterminates.
+ And when there are many indeterminates, then some of those permutations
+ are properly preserved down the resolution ...
+ but the resolution vanish any permutation ! In this context of saturated
+ extensions, one then views any polynomial instead as its quotient/ideal
+ of some ring of polynomials and then pastes such quotients into 
+\begin_inset Quotes eld
+\end_inset
+
+algebraic algebras
+\begin_inset Quotes erd
+\end_inset
+
+ or 
+\begin_inset Quotes eld
+\end_inset
+
+spectrums
+\begin_inset Quotes erd
+\end_inset
+
+ or 
+\begin_inset Quotes eld
+\end_inset
+
+schemes
+\begin_inset Quotes erd
+\end_inset
+
+ ..
+ This is Galois descent along Borceux-Janelidze-Tholen 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "borceuxjanelidze"
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -385,117 +498,91 @@ key "borceux"
 \emph on
 Esquisse d'un programme
 \emph default
-: Now when try to internalize semantics in Dosen book then get functorialization
-; therefore writing some Coq text for more from Dosen book is something
- that shall be done to gather data and examples.
- Also exploring Borceux books from computational reflection point of view
- sha be done: 3 pages/day = 1 year reading.
- 
-\end_layout
+ : The raw combinatorial (
+\begin_inset Quotes eld
+\end_inset
 
-\begin_layout Standard
-The common auto technique (the one behind CPDT 
+permutation group
+\begin_inset Quotes erd
+\end_inset
+
+) angle converge to Aigner 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "aigner"
+
+\end_inset
+
+.
+ Another parallel of the raw combinatorial techniques of Galois is the raw
+ proof techniques of Gentzen that inductive recursive arithmetic cannot
+ well-order some ordinal.
+ One question is whether the descent techniques and the proof techniques
+ can converge.
+ The initial item shall be to internalize/functorialize the semantics of
+ Dosen book and do 
+\emph on
+automation programmation
+\emph default
+ so to gather data and examples and experiments.
+ The automation programming technique has one common form mixing induction
+ or simplification conversion or logical unification or substitution rewriting
+ or repeated heuristic/attempt destructions or reflective decision procedure;
+ for example the form behind the 
 \emph on
 crush
 \emph default
- 
+ of Chlipala CPDT 
 \begin_inset CommandInset citation
 LatexCommand cite
 key "chlipalacpdt"
 
 \end_inset
 
-) is
+ is :
 \end_layout
 
-\begin_layout Quotation
-[ induction; (eval beta iota; auto logical unify; auto substitution rewrite);
- 
-\end_layout
+\begin_layout Quote
+[ induction; 
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Quotation
-repeat ( (match goal | context match term => destruct); (eval beta iota;
- auto logical unify; auto substitution rewrite) ); 
-\end_layout
+(eval beta iota; auto logical unify; auto substitution rewrite); 
+\begin_inset Newline newline
+\end_inset
 
-\begin_layout Quotation
+repeat ( (match goal | context match term => destruct); 
+\begin_inset Newline newline
+\end_inset
+
+(eval beta iota; auto logical unify; auto substitution rewrite) ); 
+\begin_inset Newline newline
+\end_inset
+
 congruence; omega; anyreflection ]
 \end_layout
 
-\begin_layout Quotation
-In other words, each action is one of: convert, or logify recur, or unify,
- or substitute rewrite, or reflect.
- And one attempts some reflection after logic programming.
-\end_layout
-
-\begin_layout Section
-Misc (TO BE UPDATED LATER)
-\end_layout
-
 \begin_layout Standard
-MACLANE PENTAGON IS SOME COMONADIC DESCENT.
- LOGICAL COHERENCE.
- CATEGORICAL DESCENT.
- COQ DEDUKTI MODULO.
-\end_layout
+The next item shall be to memo Borceux books 1 and 2, not only from the
+ simplifying conversion angle or the unification (
+\begin_inset Quotes eld
+\end_inset
 
-\begin_layout Standard
-1.
- LOGICAL COHERENCE -GROSS, CHLIPALA, COMONADIC FUNCTORIAL SEMANTIC,~~ GALOIS,
- GALTHENDIECK, GENTZEN -ERRORS OF DOSEN 1 CONFUSE MIXUP CONVERTIBLE (DEFINITIONA
-LLY/META EQUAL) WITH PROPOSITIONAL EQUAL WHEN THE THINGS ARE VARIABLES INSTEAD
- OF FULLY CONSTRUCTOR-ED EXPLICIT TERMS 2.
- RELATED TO THIS IS THE COMPUTATIONNALLY WRONG ORDER OF HES PRESENTATION
- -METAAUTO LOGICAL PROGRAMMING CONTRAST REFLECTION PROGRAMMING -CATEGORICAL
- LOGICAL COHERENCE AS META REFLECTION PROGRAMMING -induction; (eval beta
- iota; auto logical unify; auto substitution rewrite); repeat ( (match goal
- | context match term => destruct); (eval beta iota; auto logical unify;
- auto substitution rewrite) ); congruence; omega; anyreflection -convert
- or logify recur or unify or substitute rewrite or reflect
-\end_layout
+logic programming
+\begin_inset Quotes erd
+\end_inset
 
-\begin_layout Standard
-(...
- classification more than property specification subset, example: regurlar
- expression, red-black tree, closed categories, categories ...
- ...
- recur on applied subterm or nested subterm ...)
-\end_layout
-
-\begin_layout Standard
-2.
- CATEGORICAL DESCENT -POLYMORPHIC REFLECTION (ADJUNCTION)~~, MONADIC ADJUNCTION
- -INTERNALISATION -> FUNCTORIAL SATURATION (YONEDA FREE ALGEBRA) -TENSOR
- OF THEORIES -COMONADICITY SHALL BE VERY RELATED TO COHERENCE -KAN EXTENSIONS
- IS CONTEXT FOR PROOFS BY REIFICATION/REFLECTION -BASE FOR KAN EXTENSIONS
- MAYBE MODOS, MOVE FROM CARTESIAN LIMITS TO ?? -(NORMALIZE_ARROW_ASSOC ON
- NORMAL IS REVERSIBLE THEREFORE NORMALIZE_UNIT_ASSOC IS UNIT OF REFLECTION)
- 
-\end_layout
-
-\begin_layout Standard
--SemiAssoc <--> Assoc COMONADIC , NO LACK NEWMAN CONFLUENCE 
-\end_layout
-
-\begin_layout Standard
-List <--> SemiAssoc MONADIC , LACK NEWMAN CONFLUENCE, MAYBE "ITERCOVER RESOLUTIO
-N" ? -MORE BY INTERNALISATION OF COMMON COHERENCES -NOT YET FULL CATEGORICAL
- DESCENT FORM, PROGRAMME LOGICAL DOSEN AND CATEGORICAL BORCEUX 1 2 AUTO
- DESCENT VIEW, RELATE CONVERTIBILITY TYPES BY AUTORESOLUTION OR TACTIC,
- RELATE CANONICAL-STRUCTURE-AND-COERCION RESOLUTION
-\end_layout
-
-\begin_layout Standard
-3.
- COQ DEDUKTI MODULO -COQTEXT ASSOC RECURSIVE SQUARE, NO ASSOC PREORDER -COQTEXT
- SEMIASSOC COMPLETENESS, NO SEMIASSOC CONFLUENCE, NO SEMIASSOC PREORDER
- 
-\end_layout
-
-\begin_layout Standard
+) angle or the substitution rewrite angle, but also from the computational
+ reflection angle.
+ This computational reflection angle shall be far more than decision procedures,
+ but rather shall be descent techniques for existence (fullness) and identificat
+ion (failfulness); so this would allow for implicit arguments to be resolved
+ after descent or for some arguments to be programmed after descent to some
+ easier terminology ..
+ This is 3 pages/day = 1 year memo reading.
 \begin_inset CommandInset include
 LatexCommand include
-filename "assoc.v.tex"
+filename "itp2015.v.tex"
 
 \end_inset
 
@@ -511,8 +598,8 @@ key "gross"
 
 Jason Gross, Adam Chlipala, David I.
  Spivak.
- “Experience Implementing a Performant Category-Theory Library in Coq”.
- In: Interactive Theorem Proving.
+ “Experience Implementing a Performant Category-Theory Library in Coq” In:
+ Interactive Theorem Proving.
  Springer, 2014.
 \end_layout
 
@@ -524,8 +611,7 @@ key "chlipala"
 \end_inset
 
 Gregory Malecha, Adam Chlipala, Thomas Braibant.
- “Compositional Computational Reflection”.
- In: Interactive Theorem Proving.
+ “Compositional Computational Reflection” In: Interactive Theorem Proving.
  Springer, 2014.
 \end_layout
 
@@ -545,8 +631,11 @@ Certified Programming with Dependent Types
 \begin_inset Quotes erd
 \end_inset
 
-.
- 
+
+\begin_inset Newline newline
+\end_inset
+
+
 \begin_inset Flex URL
 status open
 
@@ -568,8 +657,7 @@ key "dosen"
 \end_inset
 
 Kosta Dosen, Zoran Petric.
- “Proof-Theoretical Coherence”.
- 
+ “Proof-Theoretical Coherence” 
 \begin_inset Newline newline
 \end_inset
 
@@ -590,13 +678,31 @@ http://www.mi.sanu.ac.rs/~kosta/coh.pdf
 \begin_layout Bibliography
 \begin_inset CommandInset bibitem
 LatexCommand bibitem
+key "aigner"
+
+\end_inset
+
+Martin Aigner.
+ 
+\begin_inset Quotes eld
+\end_inset
+
+Combinatorial Theory
+\begin_inset Quotes erd
+\end_inset
+
+ Springer, 1997
+\end_layout
+
+\begin_layout Bibliography
+\begin_inset CommandInset bibitem
+LatexCommand bibitem
 key "borceuxjanelidze"
 
 \end_inset
 
 Francis Borceux, George Janelidze.
- “Galois Theories”.
- Cambridge University Press, 2001.
+ “Galois Theories” Cambridge University Press, 2001.
 \end_layout
 
 \begin_layout Bibliography
@@ -608,8 +714,7 @@ key "borceux"
 
 Francis Borceux.
  “Handbook of categorical algebra.
- Volumes 1 2 3.”.
- Cambridge University Press, 1994.
+ Volumes 1 2 3” Cambridge University Press, 1994.
 \end_layout
 
 \end_body
