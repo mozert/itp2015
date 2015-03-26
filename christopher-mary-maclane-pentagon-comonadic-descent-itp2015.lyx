@@ -2,7 +2,7 @@
 \lyxformat 413
 \begin_document
 \begin_header
-\textclass article
+\textclass amsart
 \begin_preamble
 % DO NOT ALTER THIS PREAMBLE!!!
 %
@@ -51,10 +51,16 @@
 \usepackage{coqdoc}
 \usepackage{amsmath,amssymb}
 \usepackage{url}
-\usepackage{makeidx,hyperref}
+ \usepackage{hyperref}
+% \usepackage{makeidx,hyperref}
 \end_preamble
 \options BCOR7.5mm
 \use_default_options false
+\begin_modules
+theorems-ams
+eqs-within-sections
+figs-within-sections
+\end_modules
 \maintain_unincluded_children false
 \language english
 \language_package default
@@ -125,7 +131,7 @@
 \begin_body
 
 \begin_layout Title
-Maclane pentagon is some comonadic descent (Rough Proof) (6 Pages)
+Maclane pentagon is some comonadic descent
 \end_layout
 
 \begin_layout Author
@@ -137,14 +143,37 @@ EGITOR.NET, https://github.com/mozert
 \end_layout
 
 \begin_layout Abstract
+
+\shape smallcaps
+Rough Proof
+\shape default
+.
+
+\emph on
+ 
+\emph default
 This Coq text responds to Gross 
 \emph on
 Coq Categories Experience
 \emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "gross"
+
+\end_inset
+
  and Chlipala 
 \emph on
 Compositional Computational Reflection
 \emph default
+ 
+\begin_inset CommandInset citation
+LatexCommand cite
+key "chlipala"
+
+\end_inset
+
  of ITP 2014.
  
 \begin_inset Quotes eld
@@ -154,7 +183,7 @@ Compositional
 \begin_inset Quotes erd
 \end_inset
 
- is synonymous for functional/functorial; 
+ is synonymous for functional/functorial and 
 \begin_inset Quotes eld
 \end_inset
 
@@ -192,74 +221,10 @@ status open
 \end_inset
 
 
-\begin_inset Newline newline
-\end_inset
-
-
-\end_layout
-
-\begin_layout Abstract
-Keywords : Logical Coherence • Categorical Descent • Coq Dedukti Modulo
 \end_layout
 
 \begin_layout Section
 Contents 
-\end_layout
-
-\begin_layout Standard
-This Coq text responds to Gross 
-\emph on
-Coq Categories Experience
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "gross"
-
-\end_inset
-
- and Chlipala 
-\emph on
-Compositional Computational Reflection
-\emph default
- 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "chlipala"
-
-\end_inset
-
- of ITP 2014.
- 
-\begin_inset Quotes eld
-\end_inset
-
-Compositional
-\begin_inset Quotes erd
-\end_inset
-
- is synonymous for functional/functorial; 
-\begin_inset Quotes eld
-\end_inset
-
-Computational Reflection
-\begin_inset Quotes erd
-\end_inset
-
- is synonymous for monadic semantics; and this text attempts some comonadic
- descent along functorial semantics : Dosen semiassociative coherence covers
- Maclane associative coherence 
-\begin_inset CommandInset citation
-LatexCommand cite
-key "dosen"
-
-\end_inset
-
- by some comonadic adjunction, 
-\begin_inset Formula $\text{embedding }:\ \text{SemiAssoc}\leftrightarrows\text{Assoc}\ :\text{ flattening reflection}$
-\end_inset
-
-.
 \end_layout
 
 \begin_layout Standard
@@ -290,15 +255,15 @@ key "borceux"
 \begin_inset Formula $\text{Modos}$
 \end_inset
 
- category, the map
-\begin_inset Newline newline
+ category, the map 
+\begin_inset Formula 
+\[
+(\ \_\star\text{reflection})\circ(\text{reification}\star\text{unit})
+\]
+
 \end_inset
 
- 
-\begin_inset Formula $(\ \_\star\text{reflection})\circ(\text{reification}\star\text{unit})$
-\end_inset
-
- is bijective, or same, for all object 
+ is bijective; or same, for all object 
 \begin_inset Formula $M'$
 \end_inset
 
@@ -310,15 +275,37 @@ key "borceux"
 \begin_inset Formula $M$
 \end_inset
 
- map
-\begin_inset Newline newline
+ map 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
 \end_inset
 
  
-\begin_inset Formula $(\text{coreflection}\ \_\ )\circ\text{unit}_{M'}:\text{Mod}(\text{reflection }M',M)\rightarrow\text{CoMod}(M',\text{coreflection }M)$
+\begin_inset Formula 
+\[
+(\text{coreflection}\ \_\ )\circ\text{unit}_{M'}:\text{Mod}(\text{reflection }M',M)\rightarrow\text{CoMod}(M',\text{coreflection }M)
+\]
+
 \end_inset
 
- is bijective (and therefore also polymorphic in 
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+is bijective, and therefore also polymorphic in 
 \begin_inset Formula $M'$
 \end_inset
 
@@ -326,15 +313,16 @@ key "borceux"
 \begin_inset Formula $\text{counit}_{M}\circ(\text{reflection }\_\ )$
 \end_inset
 
- whose reversal is polymorphically determined by 
-\begin_inset Formula $(\text{coreflection}\star\text{counit})\circ(\text{unit}\star\text{coreflection})=\text{identity}$
+ whose reversal equations is polymorphically determined by 
+\begin_inset Formula 
+\begin{eqnarray*}
+(\text{coreflection}\star\text{counit})\circ(\text{unit}\star\text{coreflection}) & = & \text{identity}\\
+(\text{counit}\star\text{reflection})\circ(\text{reflection}\star\text{unit}) & = & \text{identity\ }.
+\end{eqnarray*}
+
 \end_inset
 
- and 
-\begin_inset Formula $(\text{counit}\star\text{reflection})\circ(\text{reflection}\star\text{unit})=\text{identity}$
-\end_inset
-
- ); and it is said that the 
+ And it is said that the 
 \begin_inset Formula $\text{unit}$
 \end_inset
 
@@ -368,10 +356,33 @@ Kan
 
  functor.
  This text shows some comonadic adjunction, 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+{
+\end_layout
+
+\end_inset
+
+ 
 \begin_inset Formula $\text{embedding }:\ \text{SemiAssoc}\leftrightarrows\text{Assoc}\ :\text{ flattening reflection}$
 \end_inset
 
 .
+ 
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
 \end_layout
 
 \begin_layout Standard
@@ -528,7 +539,7 @@ automation programmation
  The automation programming technique has one common form mixing induction
  or simplification conversion or logical unification or substitution rewriting
  or repeated heuristic/attempt destructions or reflective decision procedure;
- for example the form behind the 
+ for example the form behind 
 \emph on
 crush
 \emph default
@@ -581,7 +592,7 @@ ion (failfulness); so this would allow for implicit arguments to be resolved
  easier terminology ..
  This is 3 pages/day = 1 year memo reading.
 \begin_inset CommandInset include
-LatexCommand include
+LatexCommand input
 filename "itp2015.v.tex"
 
 \end_inset

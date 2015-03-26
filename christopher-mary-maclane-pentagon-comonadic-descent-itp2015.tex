@@ -1,13 +1,13 @@
 %% LyX 2.0.6 created this file.  For more info, see http://www.lyx.org/.
 %% Do not edit unless you really know what you are doing.
-\documentclass[12pt,letterpaper,twoside,english,BCOR7.5mm]{article}
+\documentclass[12pt,letterpaper,english,BCOR7.5mm]{amsart}
 \usepackage[T1]{fontenc}
 \usepackage[utf8x]{inputenc}
 \usepackage{color}
 \usepackage{babel}
-\usepackage{textcomp}
 \usepackage{url}
-\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amstext}
 \usepackage{amssymb}
 \usepackage[all]{xy}
 \usepackage[unicode=true,
@@ -17,13 +17,17 @@
 \hypersetup{pdftitle={Maclane pentagon is some comonadic descent},
  pdfauthor={Christopher Mary},
  linkcolor=black, citecolor=black, urlcolor=blue, filecolor=blue,pdfpagelayout=OneColumn, pdfnewwindow=true,pdfstartview=XYZ, plainpages=false}
+\usepackage{breakurl}
 
 \makeatletter
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% LyX specific LaTeX commands.
-\pdfpageheight\paperheight
-\pdfpagewidth\paperwidth
+\special{papersize=\the\paperwidth,\the\paperheight}
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Textclass specific LaTeX commands.
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
 
 \@ifundefined{date}{}{\date{}}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% User specified LaTeX commands.
@@ -74,41 +78,32 @@
 \usepackage{coqdoc}
 \usepackage{amsmath,amssymb}
 \usepackage{url}
-\usepackage{makeidx,hyperref}
+ \usepackage{hyperref}
+% \usepackage{makeidx,hyperref}
 
 \makeatother
 
 \begin{document}
 
-\title{Maclane pentagon is some comonadic descent (Rough Proof) (6 Pages)}
+\title{Maclane pentagon is some comonadic descent}
 
 
 \author{Christopher Mary\\
 EGITOR.NET, https://github.com/mozert}
-\maketitle
 \begin{abstract}
-This Coq text responds to Gross \emph{Coq Categories Experience} and
-Chlipala \emph{Compositional Computational Reflection} of ITP 2014.
-``Compositional'' is synonymous for functional/functorial; ``Computational
-Reflection'' is synonymous for monadic semantics; and this text attempts
-some comonadic descent along functorial semantics : Dosen semiassociative
-coherence covers Maclane associative coherence by some comonadic adjunction,
+\textsc{Rough Proof}.\emph{ }This Coq text responds to Gross \emph{Coq
+Categories Experience} \cite{gross} and Chlipala \emph{Compositional
+Computational Reflection} \cite{chlipala} of ITP 2014. ``Compositional''
+is synonymous for functional/functorial and ``Computational Reflection''
+is synonymous for monadic semantics; and this text attempts some comonadic
+descent along functorial semantics : Dosen semiassociative coherence
+covers Maclane associative coherence by some comonadic adjunction,
 {$\text{embedding }:\ \text{SemiAssoc}\leftrightarrows\text{Assoc}\ :\text{ flattening reflection}$.
-}\\
-
-
-Keywords : Logical Coherence • Categorical Descent • Coq Dedukti Modulo
+}
 \end{abstract}
+\maketitle
 
 \section{Contents }
-
-This Coq text responds to Gross \emph{Coq Categories Experience} \cite{gross}
-and Chlipala \emph{Compositional Computational Reflection} \cite{chlipala}
-of ITP 2014. ``Compositional'' is synonymous for functional/functorial;
-``Computational Reflection'' is synonymous for monadic semantics;
-and this text attempts some comonadic descent along functorial semantics
-: Dosen semiassociative coherence covers Maclane associative coherence
-\cite{dosen} by some comonadic adjunction, $\text{embedding }:\ \text{SemiAssoc}\leftrightarrows\text{Assoc}\ :\text{ flattening reflection}$.
 
 Categories \cite{borceux} study the interaction between reflections
 and limits. The basic configuration for reflections is : 
@@ -119,21 +114,29 @@ and limits. The basic configuration for reflections is :
 }
 \]
  where, for all $\text{reification}$ functor into any $\text{Modos}$
-category, the map\\
- $(\ \_\star\text{reflection})\circ(\text{reification}\star\text{unit})$
-is bijective, or same, for all object $M'$ in $\text{CoMod}$, the
-polymorphic in $M$ map\\
- $(\text{coreflection}\ \_\ )\circ\text{unit}_{M'}:\text{Mod}(\text{reflection }M',M)\rightarrow\text{CoMod}(M',\text{coreflection }M)$
-is bijective (and therefore also polymorphic in $M'$ with reverse
+category, the map 
+\[
+(\ \_\star\text{reflection})\circ(\text{reification}\star\text{unit})
+\]
+ is bijective; or same, for all object $M'$ in $\text{CoMod}$, the
+polymorphic in $M$ map { 
+\[
+(\text{coreflection}\ \_\ )\circ\text{unit}_{M'}:\text{Mod}(\text{reflection }M',M)\rightarrow\text{CoMod}(M',\text{coreflection }M)
+\]
+ }is bijective, and therefore also polymorphic in $M'$ with reverse
 map $\text{counit}_{M}\circ(\text{reflection }\_\ )$ whose reversal
-is polymorphically determined by $(\text{coreflection}\star\text{counit})\circ(\text{unit}\star\text{coreflection})=\text{identity}$
-and $(\text{counit}\star\text{reflection})\circ(\text{reflection}\star\text{unit})=\text{identity}$
-); and it is said that the $\text{unit}$ natural/polymorphic/commuting
+equations is polymorphically determined by 
+\begin{eqnarray*}
+(\text{coreflection}\star\text{counit})\circ(\text{unit}\star\text{coreflection}) & = & \text{identity}\\
+(\text{counit}\star\text{reflection})\circ(\text{reflection}\star\text{unit}) & = & \text{identity\ }.
+\end{eqnarray*}
+ And it is said that the $\text{unit}$ natural/polymorphic/commuting
 transformation is the \emph{unit of the reflection} and the reflective
 pair $(\text{reification}\circ\text{coreflection},\text{reification}\star\text{unit})$
 is some \emph{coreflective (``Kan'') extension functor} of the $\text{reification}$
 functor along the $\text{reflection}$ functor. This text shows some
-comonadic adjunction, $\text{embedding }:\ \text{SemiAssoc}\leftrightarrows\text{Assoc}\ :\text{ flattening reflection}$.
+comonadic adjunction, { $\text{embedding }:\ \text{SemiAssoc}\leftrightarrows\text{Assoc}\ :\text{ flattening reflection}$.
+}
 
 Categories \cite{borceuxjanelidze} \cite{borceux} converge to the
 \emph{descent technique}, this convergence is from both the \emph{functorial
@@ -177,7 +180,7 @@ so to gather data and examples and experiments. The automation programming
 technique has one common form mixing induction or simplification conversion
 or logical unification or substitution rewriting or repeated heuristic/attempt
 destructions or reflective decision procedure; for example the form
-behind the \emph{crush} of Chlipala CPDT \cite{chlipalacpdt} is :
+behind \emph{crush} of Chlipala CPDT \cite{chlipalacpdt} is :
 \begin{quote}
 {[} induction; \\
 (eval beta iota; auto logical unify; auto substitution rewrite); \\
@@ -194,7 +197,7 @@ more than decision procedures, but rather shall be descent techniques
 for existence (fullness) and identification (failfulness); so this
 would allow for implicit arguments to be resolved after descent or
 for some arguments to be programmed after descent to some easier terminology
-.. This is 3 pages/day = 1 year memo reading.\include{itp2015.v}
+.. This is 3 pages/day = 1 year memo reading.\input{itp2015.v.tex}
 \begin{thebibliography}{1}
 \bibitem{gross}Jason Gross, Adam Chlipala, David I. Spivak. “Experience
 Implementing a Performant Category-Theory Library in Coq” In: Interactive
